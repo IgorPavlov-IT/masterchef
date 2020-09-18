@@ -96,17 +96,30 @@
                 <constraints nullable="true" primaryKey="false" unique="false"/>
             </column>
         </createTable>
+    </changeSet>
 
-
-<!--        <createTable tableName="cooking_time">
-            <column name="id" type="int" autoIncrement="true">
-                <constraints nullable="false" primaryKey="true" unique="true"/>
-            </column>
-            <column name="name" type="text">
-                <constraints nullable="false" primaryKey="false" unique="true"/>
-            </column>
-        </createTable>-->
-
+    <changeSet id="2020-09-18 cooking-time table added" author="Kildu">
+       <createTable tableName="cooking_time">
+        <column name="id" type="int" autoIncrement="true">
+            <constraints nullable="false" primaryKey="true" unique="true"/>
+        </column>
+        <column name="name" type="text">
+            <constraints nullable="false" primaryKey="false" unique="true"/>
+        </column>
+    </createTable>
+        <modifyDataType  columnName="cooking_time"
+                         newDataType="int"
+                         tableName="recipe"/>
+        <addForeignKeyConstraint  baseColumnNames="cooking_time"
+                                  baseTableName="recipe"
+                                  constraintName="fk_cooking_time_recipe"
+                                  deferrable="true"
+                                  initiallyDeferred="true"
+                                  onDelete="CASCADE"
+                                  onUpdate="RESTRICT"
+                                  referencedColumnNames="id"
+                                  referencedTableName="cooking_time"
+                                  validate="true"/>
     </changeSet>
 
 </databaseChangeLog>
