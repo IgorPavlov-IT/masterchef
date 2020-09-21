@@ -1,16 +1,14 @@
 package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ChefController {
 
 
     @Autowired
-        private ChefService chefService;
+    private ChefService chefService;
 
 
     // tehtud Kildu
@@ -20,20 +18,27 @@ public class ChefController {
 
 
     @PostMapping("masterchef/recipe/add")
-    public String createRecipe (RecipeDTO newRecipeData) {
+    public void createRecipe(@RequestBody RecipeDTO newRecipeData) {
         chefService.createRecipe(newRecipeData);
-
-    return "OK";
     }
 
-    // teeb Kildu
-//    @GetMapping ("masterchef/recipe/display")
-//    public String showRecipe;
-//    return = "OK";
 
-//    @GetMapping ("masterchef/recipe/all")
-//    public String showFullRecipe
-//    return = "OK";
+    @GetMapping("masterchef/recipe/display")
+    public String showRecipe(@RequestBody int recipeID) {
+        chefService.showRecipe(recipeID);
+        return "OK";
+
+    }
+
+
+
+    @GetMapping ("masterchef/recipe/{all}")
+    public String showFullRecipe() {
+        chefService.showFullRecipeList();
+        return "OK";
+
+    }
+
 
 //    @GetMapping ("masterchef/recipe/searchresult")
 //    public String searchRecipeList
@@ -46,11 +51,6 @@ public class ChefController {
 //    @GetMapping ("masterchef")
 
 //
-
-
-
-
-
 
 
 }
