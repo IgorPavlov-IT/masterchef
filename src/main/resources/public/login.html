@@ -74,14 +74,14 @@
     <div class="jumbotron text-center">
         <div class="container">
             <p class="text-muted ">Sign in to use full potential of MasterChef</p>
-            <input type="text" id="inputUsername" class="form-control col-md-4" placeholder="Username" required="" style="margin:auto">
-            <input type="password" id="inputPassword" class="form-control col-md-4" placeholder="Password" required="" style="margin:auto; margin-top: 15px">
+            <input type="text" id="username" class="form-control col-md-4" placeholder="Username" required="" style="margin:auto">
+            <input type="password" id="password" class="form-control col-md-4" placeholder="Password" required="" style="margin:auto; margin-top: 15px">
             <br>
             <p><a class="btn btn-success btn-md" href="#" role="button">Sign in</a></p>
             <br>
             <p class="text-muted ">You're not a member of MasterChef Family yet? Don't hesitate, create an account below to join us now.</p>
-            <input type="text" id="inputFirstName" class="form-control col-md-4" placeholder="First name" required="" style="margin:auto">
-            <input type="password" id="inputLastName" class="form-control col-md-4" placeholder="Last name" required="" style="margin:auto; margin-top: 15px">
+            <input type="text" id="firstName" class="form-control col-md-4" placeholder="First name" required="" style="margin:auto">
+            <input type="password" id="lastName" class="form-control col-md-4" placeholder="Last name" required="" style="margin:auto; margin-top: 15px">
             <div class="container">
             <div class="dropdown">
                 <button type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown">
@@ -105,11 +105,11 @@
                 <input id="gender" type="text" class="form-control" aria-label="Text input with dropdown button">
             </div>
            <!-- <input type="text" id="inputGender" class="form-control col-md-4" placeholder="Gender" required="" style="margin:auto; margin-top: 15px">-->
-            <input type="text" id="inputUsername1" class="form-control col-md-4" placeholder="Username" required="" style="margin:auto; margin-top: 15px">
-            <input type="password" id="inputPassword1" class="form-control col-md-4" placeholder="Password" required="" style="margin:auto; margin-top: 15px">
+            <input type="text" id="username1" class="form-control col-md-4" placeholder="Username" required="" style="margin:auto; margin-top: 15px">
+            <input type="password" id="password1" class="form-control col-md-4" placeholder="Password" required="" style="margin:auto; margin-top: 15px">
 
             <br>
-            <p><a class="btn btn-success btn-md" href="#" role="button">Sign up</a></p>
+            <p><a class="btn btn-success btn-md" id="createAccount"href="#" role="button">Create account</a></p>
         </div>
     </div>
 </main>
@@ -119,12 +119,49 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
 <script>
-    let selectionGender = document.getElementById("dropGender");
+    /*Create new user account*/
+    let inputFirstName = document.getElementById("firstName");
+    let inputLastName = document.getElementById("lastName");
+    let inputUsername1 = document.getElementById("username1");
+    let inputPassword1 = document.getElementById("password1");
+    let buttonCreateAccount = document.getElementById("createAccount");
+    buttonCreateAccount.addEventListener('click', function () {
+
+        fetch('masterchef/user', {
+            method: 'POST',
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                firstName: inputFirstName.value,
+                lastName: inputLastName.value,
+                username: inputUsername1.value,
+                password: inputPassword1.value
+            })
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (jsonData) {
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+        document.getElementById("firstName").value = "";
+        document.getElementById("lastName").value = "";
+        document.getElementById("username1").value = "";
+        document.getElementById("password1").value = "";
+    })
+
+
+
+/*    let selectionGender = document.getElementById("dropGender");
     let inputGender= document.getElementById("gender");
     selectionGender.onclick = function () {
         alert(selectionGender.options[selectionGender.selectedIndex].text);
-        /*inputGender.innerHTML=*/
-    }
+        /!*inputGender.innerHTML=*!/
+    }*/
 </script>
 </body>
 </html>
