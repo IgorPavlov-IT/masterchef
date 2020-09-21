@@ -122,4 +122,34 @@
                                   validate="true"/>
     </changeSet>
 
+    <changeSet id="2020-09-20 add constants - cooking_time table" author="Kildu">
+        <insert  tableName="cooking_time">
+            <column  name="name"  value="below 15 min"/>
+        </insert>
+        <insert  tableName="cooking_time">
+            <column  name="name"  value="15 - 30 min"/>
+        </insert>
+        <insert  tableName="cooking_time">
+            <column  name="name"  value="30 - 60 min"/>
+        </insert>
+        <insert  tableName="cooking_time">
+            <column  name="name"  value="1 - 2 h"/>
+        </insert>
+        <insert  tableName="cooking_time">
+            <column  name="name"  value="2+ h"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="2020-09-20 add constants - meal_type table" author="Kildu">
+        <insert  tableName="meal_type">
+            <column  name="name"  value="breakfast"/>
+        </insert>
+        <insert  tableName="meal_type">
+            <column  name="name"  value="lunch"/>
+        </insert>
+        <insert  tableName="meal_type">
+            <column  name="name"  value="dinner"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>

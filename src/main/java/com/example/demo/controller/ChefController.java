@@ -1,8 +1,9 @@
 package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -10,13 +11,13 @@ public class ChefController {
 
 
     @Autowired
-        private ChefService chefService;
+    private ChefService chefService;
 
+        @PostMapping("masterchef/user")
+        public void createUser(@RequestBody UserDTO users) {
+            chefService.createNewUser(users.getFirstName(), users.getLastName(), users.getUsername(), users.getPassword());
+        } // web:   http://localhost:8080/masterchef/user
 
-    // tehtud Kildu
-//    @PostMapping ("masterchef/user")
-//    public String createUser
-//    return = "OK";
 
 
     @PostMapping("masterchef/recipe/add")
@@ -45,7 +46,7 @@ public class ChefController {
 
 //    @GetMapping ("masterchef")
 
-//
+
 
 
 
@@ -54,6 +55,7 @@ public class ChefController {
 
 
 }
+
 
 
 
