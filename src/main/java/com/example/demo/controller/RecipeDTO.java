@@ -6,7 +6,7 @@ public class RecipeDTO {
     int type;
     String notes;
 //    Object picture;
-    String instructions;
+    String instruction;
 
     public String getName() {
         return name;
@@ -53,12 +53,12 @@ public class RecipeDTO {
 //        return this;
 //    }
 
-    public String getInstructions() {
-        return instructions;
+    public String getInstruction() {
+        return instruction;
     }
 
-    public RecipeDTO setInstructions(String instructions) {
-        this.instructions = instructions;
+    public RecipeDTO setInstruction(String instruction) {
+        this.instruction = instruction;
         return this;
     }
 }
