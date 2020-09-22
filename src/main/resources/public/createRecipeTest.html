@@ -71,121 +71,40 @@
     </div>
 </nav>
 <main role="main">
-    <div class="row mb-2">
-        <div class="col-md-4">
-<!--            <img class="mb-4 img-fluid" alt="Responsive image" src="shrimp.jpg" alt="" width="384" height="256"
-                 style="margin-top:75px">-->
-            <h4 class="lead" id="notes" style="margin-left:60px">Notes</h4>
-            <p class="text-secondary" style="margin-left:60px"> oi,oi,oi, kui maitsev! :)</p>
+    <div class="jumbotron text-center">
+        <label for="recipeName" style="margin-top:50px">Recipe name</label>
+        <input type="text" id="recipeName" class="form_control" style="margin-left:15px;margin-top:50px"></input>
+        <form>
+            <label for="cookingTime">Cooking time</label>
+            <select name="Cooking time" id="cookingTime" style="margin-left:15px;margin-top:20px">
+                <option value="1">below 15 min</option>
+                <option value="2">15 - 30 min</option>
+                <option value="3">30 - 60 min</option>
+                <option value="4">1 - 2 h</option>
+                <option value="5">2+ h</option>
+            </select>
+        </form>
+        <form>
+            <label for="type">Meal type</label>
+            <select name="Meal type" id="type" style="margin-left:15px;margin-top:20px">
+                <option value="1">breakfast</option>
+                <option value="2">lunch</option>
+                <option value="3">dinner</option>
+            </select>
+        </form>
+        <div>
+        <label for="instruction" class="input-xxlarge">Instruction</label>
+        <input type="text" id="instruction" class="input-xxlarge" style="margin-left:15px;margin-top:20px"></input>
         </div>
-        <div class="col-md-8">
-            <!--<div class="container" style="margin-top:68px;margin-left: 50px">-->
-            <label for="recipeName">Recipe name</label>
-            <input type="text" id="recipeName" class="form_control" style="margin-left:30px;margin-top:60px"></input>
-            <!-- </div>-->
-            <div class="row mb-2">
-                <!-- <div class="row">-->
-                <div class="col-md-2 text-right">
-                    <!--<div class="container"-->
-                    <!--style="margin-top:15px;margin-bottom:15px;margin-left: 50px;text-align: right">-->
-                    <p>Cooking time</p>
-                    <p class="card-text mb-auto"><strong>Quantity</strong></p>
-                    <p class="card-text mb-auto">50 g</p>
-                    <p class="card-text mb-auto">200 ml</p>
-                    <p class="card-text mb-auto">6 pcs</p>
-                    <p class="card-text mb-auto">...</p>
-                    <p class="card-text mb-auto">...</p>
-                    <p class="card-text mb-auto">...</p>
-                    <p class="card-text mb-auto">...</p>
-                    <p class="card-text mb-auto">...</p>
-                    <p class="card-text mb-auto">...</p>
-                    <!--</div>-->
-                </div>
-                <div class="col-md-2">
-                    <!--<div class="container" style="margin-top:15px;margin-bottom:15px;margin-left:20px">-->
-                    <p>Type</p>
-                    <p class="card-text mb-auto"><strong>Ingredients</strong></p>
-                    <p class="card-text mb-auto">tomatos</p>
-                    <p class="card-text mb-auto">cream</p>
-                    <p class="card-text mb-auto">shrimp</p>
-                    <p class="card-text mb-auto">...</p>
-                    <p class="card-text mb-auto">...</p>
-                    <p class="card-text mb-auto">...</p>
-                    <p class="card-text mb-auto">...</p>
-                    <p class="card-text mb-auto">...</p>
-                    <p class="card-text mb-auto">...</p>
-                    <!--   </div>-->
-                    <!--   </div>-->
-                </div>
-                <div class="col-md-8">
-                    <div class="container" style="margin-top:54px;margin-bottom:15px;margin-left: 10px">
-                        <p class="card-text mb-auto"><strong>Instructions</strong></p>
-                        <p class="card-text mb-auto">1. Pane kooritud krevetid koos 1 sl õli ja 1 purustatud
-                            küüslauguküünega kaussi. Maitsesta soola ja musta pipraga. Sega läbi ja lase 30 minutit
-                            maitsestuda.
-                            2. Haki sibul ja lõika paprika õhukesteks viiludeks. Kuumuta haudepoti põhjas 2 sl õli. 
-                            Hauta sibulat ja paprikat 3-4 minutit.
-                            3. Lisa 2 hakitud küüslauguküünt ja tšilliviilud, kuumuta läbi. Lisa tükeldatud tomatid,
-                            hakitud basiilik ja koriander, hauta 2-3 minutit.
-                            4. Lisa köögiviljade juurde potti kookospiim, puljong, laimimahl, ingver ja jahvatatud
-                            paprika, maitsesta soola-pipraga. Kuumuta keemiseni ja keeda 5-7 minutit, kuni kaste veidi
-                            pakseneb.
-                            5. Vala pannile 2 sl õli ja prae krevette 1-2 minutit. Keera ümber ja prae veel 1-2 minutit
-                            kuni muutuvad roosaks. Lisa krevetid hautisele ja sega läbi. Serveeri hautist riisi või
-                            nuudlitega. Pane peale basiiliku- ja koriandrilehti ning viilutatud tsillit.   
-                            Loe lähemalt https://toidutare.ohtuleht.ee/943459/krevetid-koogivilja-kookosekastmes</p>
-                    </div>
-                </div>
+        <div>
+        <label for="notes">Notes</label>
+        <input type="text" id="notes" style="margin-left:15px;margin-top:20px"></input>
             </div>
-        </div>
+        <p><a class="btn btn-success btn-md" id="createRecipe" href="#" role="button" style="margin-top:25px">Create recipe</a></p>
     </div>
-    <!--    <div class="row mb-2">
-            <div class="col-md-6">
-                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                    <div class="col p-4 d-flex flex-column position-static">
-                        <strong class="d-inline-block mb-2 text-primary">World</strong>
-                        <h3 class="mb-0">Featured post</h3>
-                        <div class="mb-1 text-muted">Nov 12</div>
-                        <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to
-                            additional content.</p>
-                        <a href="#" class="stretched-link">Continue reading</a>
-                    </div>
-                    <div class="col-auto d-none d-lg-block">
-                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg"
-                             preserveAspectRatio="xMidYMid slice" focusable="false" role="img"
-                             aria-label="Placeholder: Thumbnail"><title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#55595c"></rect>
-                            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                    <div class="col p-4 d-flex flex-column position-static">
-                        <strong class="d-inline-block mb-2 text-success">Design</strong>
-                        <h3 class="mb-0">Post title</h3>
-                        <div class="mb-1 text-muted">Nov 11</div>
-                        <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to
-                            additional content.</p>
-                        <a href="#" class="stretched-link">Continue reading</a>
-                    </div>
-                    <div class="col-auto d-none d-lg-block">
-                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg"
-                             preserveAspectRatio="xMidYMid slice" focusable="false" role="img"
-                             aria-label="Placeholder: Thumbnail"><title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#55595c"></rect>
-                            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>-->
-    </div>
-    <!-- Main jumbotron for a primary marketing message or call to action -->
 </main>
 <footer class="container">
-    <p>© Company 2017-2020</p>
+    <p>© Best Cooking App 2020 Award Winner</p>
 </footer>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -195,12 +114,43 @@
         integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf"
         crossorigin="anonymous"></script>
 <script>
-    let selectionGender = document.getElementById("dropGender");
-    let inputGender = document.getElementById("gender");
-    selectionGender.onclick = function () {
-        alert(selectionGender.options[selectionGender.selectedIndex].text);
-        /*inputGender.innerHTML=*/
-    }
+    /*Create new user account*/
+    let inputRecipeName = document.getElementById("recipeName");
+    let inputCookingTime = document.getElementById("cookingTime");
+    let inputType = document.getElementById("type");
+    let inputNotes = document.getElementById("notes");
+    let inputInstruction = document.getElementById("instruction");
+    let buttonCreateRecipe = document.getElementById("createRecipe");
+    buttonCreateRecipe.addEventListener('click', function () {
+
+        fetch('masterchef/recipe/add', {
+            method: 'POST',
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: inputRecipeName.value,
+                cookingTime: inputCookingTime.options[inputCookingTime.selectedIndex].value,
+                type: inputType.options[inputType.selectedIndex].value,
+                notes: inputNotes.value,
+                instruction: inputInstruction.value
+            })
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (jsonData) {
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+        inputRecipeName.value = "";
+        inputCookingTime.value = "";
+        document.inputType.value = "";
+        inputNotes.value = "";
+        inputInstruction.value = "";
+    })
 </script>
 </body>
 </html>

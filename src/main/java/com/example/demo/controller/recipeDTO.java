@@ -1,48 +1,44 @@
 package com.example.demo.controller;
 
-public class recipeDTO {
-    public int id;
-    public String name;
-//    public int quantity;
-//    public String unit;
-//    public String ingredient;
-    public String cookingTime;
-    public String type;
-    public String notes;
-    public String instruction;
+public class RecipeDTO {
+    String name;
+    int cookingTime;
+    int type;
+    String notes;
+    String picture;
+    String instruction;
 
-    public int getId() {
-        return id;
+    public String getPicture() {
+        return picture;
     }
 
-    public recipeDTO setId(int id) {
-        this.id = id;
-        return this;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public String getName() {
         return name;
     }
 
-    public recipeDTO setName(String name) {
+    public RecipeDTO setName(String name) {
         this.name = name;
         return this;
     }
 
-    public String getCookingTime() {
+    public int getCookingTime() {
         return cookingTime;
     }
 
-    public recipeDTO setCookingTime(String cookingTime) {
+    public RecipeDTO setCookingTime(int cookingTime) {
         this.cookingTime = cookingTime;
         return this;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public recipeDTO setType(String type) {
+    public RecipeDTO setType(int type) {
         this.type = type;
         return this;
     }
@@ -51,16 +47,25 @@ public class recipeDTO {
         return notes;
     }
 
-    public recipeDTO setNotes(String notes) {
+    public RecipeDTO setNotes(String notes) {
         this.notes = notes;
         return this;
     }
+
+//    public Object getPicture() {
+//        return picture;
+//    }
+//
+//    public RecipeDTO setPicture(Object picture) {
+//        this.picture = picture;
+//        return this;
+//    }
 
     public String getInstruction() {
         return instruction;
     }
 
-    public recipeDTO setInstruction(String instruction) {
+    public RecipeDTO setInstruction(String instruction) {
         this.instruction = instruction;
         return this;
     }

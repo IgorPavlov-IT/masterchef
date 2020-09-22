@@ -13,18 +13,19 @@ public class ChefController {
     @Autowired
     private ChefService chefService;
 
-        @PostMapping("masterchef/user")
-        public void createUser(@RequestBody UserDTO users) {
-            chefService.createNewUser(users.getFirstName(), users.getLastName(), users.getUsername(), users.getPassword());
-        } // web:   http://localhost:8080/masterchef/user
-
-
+    @PostMapping("masterchef/user")
+    public void createUser(@RequestBody UserDTO users) {
+        chefService.createNewUser(users.getFirstName(), users.getLastName(), users.getUsername(), users.getPassword());
+    } // web:   http://localhost:8080/masterchef/user
 
     @PostMapping("masterchef/recipe/add")
-    public String createRecipe (RecipeDTO newRecipeData) {
+    public void createRecipe(@RequestBody RecipeDTO newRecipeData) {
         chefService.createRecipe(newRecipeData);
+    }   // web:   http://localhost:8080/masterchef/recipe/add
 
-    return "OK";
+    @GetMapping("masterchef/user")
+    public UserDTO getUser() {
+        return new UserDTO(chefService.getSignUp());
     }
 
     // teeb Kildu
@@ -45,13 +46,6 @@ public class ChefController {
 //    return = "OK";
 
 //    @GetMapping ("masterchef")
-
-
-
-
-
-
-
 
 
 }
