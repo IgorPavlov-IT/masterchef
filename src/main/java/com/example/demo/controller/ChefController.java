@@ -16,16 +16,20 @@ public class ChefController {
     @Autowired
     private ChefService chefService;
 
-        @PostMapping("masterchef/user")
-        public void createUser(@RequestBody UserDTO users) {
-            chefService.createNewUser(users.getFirstName(), users.getLastName(), users.getUsername(), users.getPassword());
-        } // web:   http://localhost:8080/masterchef/user
-
-
+    @PostMapping("masterchef/user")
+    public void createUser(@RequestBody UserDTO users) {
+        chefService.createNewUser(users.getFirstName(), users.getLastName(), users.getUsername(), users.getPassword());
+    } // web:   http://localhost:8080/masterchef/user
 
     @PostMapping("masterchef/recipe/add")
     public void createRecipe(@RequestBody RecipeDTO newRecipeData) {
         chefService.createRecipe(newRecipeData);
+
+    }   // web:   http://localhost:8080/masterchef/recipe/add
+
+    @GetMapping("masterchef/user")
+    public UserDTO getUser() {
+        return new UserDTO(chefService.getSignUp());
     }
 
 
@@ -33,6 +37,7 @@ public class ChefController {
     public String showRecipe(@RequestBody int recipeID) {
         chefService.showRecipe(recipeID);
         return "OK";
+
 
     }
 
@@ -55,7 +60,6 @@ public class ChefController {
 //    return = "OK";
 
 //    @GetMapping ("masterchef")
-
 
 
 

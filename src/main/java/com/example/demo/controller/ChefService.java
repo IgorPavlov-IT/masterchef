@@ -13,16 +13,22 @@ public class ChefService {
     @Autowired
     private ChefRepository chefRepository;
 
+    @Autowired
+    private SignUpRepository signUpRepository;
+
 
     /*    public addRecipeToDB ();*/
 
     public void createNewUser(String firstName, String lastName, String username, String password) {
         chefRepository.createSqlUser(firstName, lastName, username, password);
+    }
 
-
-    public String createRecipe(RecipeDTO newRecipeData) {
+    public void createRecipe(RecipeDTO newRecipeData) {
         chefRepository.createRecipe(newRecipeData);
-        return "ok";
+    }
+
+
+    public String retrieveCookingTime(int tempInput) {
     }
 
     public RecipeDTO showRecipe (int recipeID) {
@@ -40,10 +46,14 @@ public class ChefService {
         return "ok";
     }
 
-
     public String retrieveMealType(int tempInput) {
         chefRepository.retrieveType(tempInput);
         return "ok";
-
     }
+
+    public SignUp getSignUp() {
+        System.out.println(signUpRepository.getOne(1));
+        return signUpRepository.getOne(1);
+    }
+
 }
