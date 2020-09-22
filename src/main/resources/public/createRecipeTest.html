@@ -97,6 +97,10 @@
         <input type="text" id="instruction" class="input-xxlarge" style="margin-left:15px;margin-top:20px"></input>
         </div>
         <div>
+            <label for="picture" class="input-xxlarge">Picture</label>
+            <input type="text" id="picture" class="input-xxlarge" style="margin-left:15px;margin-top:20px"></input>
+        </div>
+        <div>
         <label for="notes">Notes</label>
         <input type="text" id="notes" style="margin-left:15px;margin-top:20px"></input>
             </div>
@@ -118,8 +122,9 @@
     let inputRecipeName = document.getElementById("recipeName");
     let inputCookingTime = document.getElementById("cookingTime");
     let inputType = document.getElementById("type");
-    let inputNotes = document.getElementById("notes");
     let inputInstruction = document.getElementById("instruction");
+    let inputPicture = document.getElementById("picture");
+    let inputNotes = document.getElementById("notes");
     let buttonCreateRecipe = document.getElementById("createRecipe");
     buttonCreateRecipe.addEventListener('click', function () {
 
@@ -133,8 +138,9 @@
                 name: inputRecipeName.value,
                 cookingTime: inputCookingTime.options[inputCookingTime.selectedIndex].value,
                 type: inputType.options[inputType.selectedIndex].value,
+                instruction: inputInstruction.value,
+                picture: inputPicture.value,
                 notes: inputNotes.value,
-                instruction: inputInstruction.value
             })
         })
             .then(function (response) {
