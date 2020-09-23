@@ -9,15 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-
 @Repository
 public class ChefRepository {
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
-
-
 
     public void createSqlUser(String firstName, String lastName, String username, String password) {
         String sql = "INSERT INTO sign_up (first_name, last_name, username, password) values (:firstName, :lastName, :username, :password)";    //koolon viitab väljapoole SQL'i, viitab Javale
@@ -29,62 +25,44 @@ public class ChefRepository {
         jdbcTemplate.update(sql, paramMap);
     }
 
-
     public void createRecipe (RecipeDTO newRecipeData) {
-
-        String createRecipeString = "INSERT INTO recipe (name, cooking_time, type, notes, picture, instruction) VALUES (:name, :cooking_time, :type, :notes, :picture, :instruction)";
-
+        String createRecipeString = "INSERT INTO recipe (name, cooking_time, type, notes, instruction) VALUES (:name, :cooking_time, :type, :notes, :instruction)";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", newRecipeData.getName());
         paramMap.put("cooking_time", newRecipeData.getCookingTime());
         paramMap.put("type", newRecipeData.getType());
         paramMap.put("notes", newRecipeData.getNotes());
-
-        paramMap.put("picture", newRecipeData.getPicture());
         paramMap.put("instruction", newRecipeData.getInstruction());
         jdbcTemplate.update(createRecipeString, paramMap);
        }
 
-
-    }
-
-    public RecipeDTO showRecipe (int recipeID) {
+       public RecipeDTO showRecipe (int recipeID) {
         String showRecipeString = "SELECT * FROM recipe WHERE id = :id";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", recipeID);
-        RecipeDTO recipeDTO = jdbcTemplate.queryForObject(showRecipeString, paramMap, new RecipeRowMapper());
+        RecipeDTO RecipeDTO = jdbcTemplate.queryForObject(showRecipeString, paramMap, new RecipeRowMapper());
         //jdbcTemplate.queryForList(showRecipeString, paramMap, String.class) - näide stringilistist.
-        return recipeDTO;
-
+        return RecipeDTO;
     }
 
-
-    public List<RecipeDTO> showFullRecipeTable () {
-        String showFullRecipeList = "SELECT * FROM recipe";
+    public List<RecipeWithClassificatorsDTO> showFullRecipeTable () {
+        String showFullRecipeList = "SELECT recipe.id, recipe.name, cooking_time.name cooking_time, meal_type.name meal_type, recipe.notes, recipe.instruction FROM recipe " +
+                "JOIN cooking_time ON recipe.cooking_time = cooking_time.id " +
+                "JOIN meal_type ON recipe.type = meal_type.id";
         Map<String, Object> paramMap = new HashMap<>();
-        List<RecipeDTO> recipeDTOData = jdbcTemplate.query(showFullRecipeList, paramMap, new RecipeRowMapper());
-        return recipeDTOData;
+        return jdbcTemplate.query(showFullRecipeList, paramMap, new RecipeWithClassificatorsRowMapper());
     }
-
-
-
     public String retrieveCookingTime(int idCookingTime) {
         String retrieveCookingTimeInfo = "SELECT name FROM cooking_time WHERE id = :id";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", idCookingTime);
-
         return jdbcTemplate.queryForObject(retrieveCookingTimeInfo, paramMap, String.class);
-
     }
 
     public String retrieveType(int idMealType) {
         String retrieveMealTypeInfo = "SELECT name FROM meal_type WHERE id = :id";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", idMealType);
-
         return jdbcTemplate.queryForObject(retrieveMealTypeInfo, paramMap, String.class);
-
     }
-
-
 }

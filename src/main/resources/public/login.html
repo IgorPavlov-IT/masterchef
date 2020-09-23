@@ -81,7 +81,7 @@
             <br>
             <p class="text-muted ">You're not a member of MasterChef Family yet? Don't hesitate, create an account below to join us now.</p>
             <input type="text" id="firstName" class="form-control col-md-4" placeholder="First name" required="" style="margin:auto">
-            <input type="password" id="lastName" class="form-control col-md-4" placeholder="Last name" required="" style="margin:auto; margin-top: 15px">
+            <input type="text" id="lastName" class="form-control col-md-4" placeholder="Last name" required="" style="margin:auto; margin-top: 15px">
             <div class="container">
             <div class="dropdown">
                 <button type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown">
@@ -140,10 +140,8 @@
                 password: inputPassword1.value
             })
         })
-            .then(function (response) {
-                return response.json();
-            })
             .then(function (jsonData) {
+
             })
             .catch(function (err) {
                 console.log(err);
