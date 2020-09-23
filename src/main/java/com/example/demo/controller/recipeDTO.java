@@ -1,20 +1,13 @@
 package com.example.demo.controller;
 
 public class RecipeDTO {
+
     String name;
     int cookingTime;
     int type;
     String notes;
     String picture;
     String instruction;
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
 
     public String getName() {
         return name;
@@ -52,14 +45,14 @@ public class RecipeDTO {
         return this;
     }
 
-//    public Object getPicture() {
-//        return picture;
-//    }
-//
-//    public RecipeDTO setPicture(Object picture) {
-//        this.picture = picture;
-//        return this;
-//    }
+    public String getPicture() {
+        return picture;
+    }
+
+    public RecipeDTO setPicture(String picture) {
+        this.picture = picture;
+        return this;
+    }
 
     public String getInstruction() {
         return instruction;
