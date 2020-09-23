@@ -28,20 +28,20 @@ public class ChefService {
     }
 
 
-    public String retrieveCookingTime(int tempInput) {
-    }
-
-    public RecipeDTO showRecipe (int recipeID) {
-
+    public RecipeDTO showRecipe(int recipeID) {
         return chefRepository.showRecipe(recipeID);
 
     }
 
-    public List<RecipeDTO> showFullRecipeList () {
+    public List<RecipeDTO> showFullRecipeList() {
         return chefRepository.showFullRecipeTable();
     }
 
-    public String retrieveCookingTime (int tempInput) {
+    public List<RecipeDTO> showSearchResultList(String searchWord) {
+        return chefRepository.showRecipeSearchList(searchWord);
+    }
+
+    public String retrieveCookingTime(int tempInput) {
         chefRepository.retrieveCookingTime(tempInput);
         return "ok";
     }
