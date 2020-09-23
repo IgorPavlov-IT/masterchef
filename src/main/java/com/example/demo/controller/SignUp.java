@@ -18,6 +18,7 @@ public class SignUp {
     private String username;
     private String password;
 
+
     public int getId() {
         return id;
     }
@@ -58,3 +59,4 @@ public class SignUp {
         this.password = password;
     }
 }
+

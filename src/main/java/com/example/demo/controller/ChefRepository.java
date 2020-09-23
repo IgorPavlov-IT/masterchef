@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -25,6 +24,7 @@ public class ChefRepository {
         jdbcTemplate.update(sql, paramMap);
     }
 
+
     public void createRecipe (RecipeDTO newRecipeData) {
         String createRecipeString = "INSERT INTO recipe (name, cooking_time, type, notes, instruction) VALUES (:name, :cooking_time, :type, :notes, :instruction)";
         Map<String, Object> paramMap = new HashMap<>();
@@ -34,7 +34,7 @@ public class ChefRepository {
         paramMap.put("notes", newRecipeData.getNotes());
         paramMap.put("instruction", newRecipeData.getInstruction());
         jdbcTemplate.update(createRecipeString, paramMap);
-       }
+
 
        public RecipeDTO showRecipe (int recipeID) {
         String showRecipeString = "SELECT * FROM recipe WHERE id = :id";
@@ -45,6 +45,7 @@ public class ChefRepository {
         return RecipeDTO;
     }
 
+
     public List<RecipeWithClassificatorsDTO> showFullRecipeTable () {
         String showFullRecipeList = "SELECT recipe.id, recipe.name, cooking_time.name cooking_time, meal_type.name meal_type, recipe.notes, recipe.instruction FROM recipe " +
                 "JOIN cooking_time ON recipe.cooking_time = cooking_time.id " +
@@ -52,6 +53,17 @@ public class ChefRepository {
         Map<String, Object> paramMap = new HashMap<>();
         return jdbcTemplate.query(showFullRecipeList, paramMap, new RecipeWithClassificatorsRowMapper());
     }
+
+    public List<RecipeDTO> showRecipeSearchList(String searchWord) {
+        String showSearchResultRecipeList = "SELECT * FROM recipe WHERE name = ilike :searchWord OR cooking_time = ilike :searchWord OR" +
+                "type = ilike :searchWord OR notes = ilike :searchWord OR instruction ilike :searchWord";
+
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("searchWord", "%" + searchWord + "%");
+        List<RecipeDTO> recipeSearchData = jdbcTemplate.query(showSearchResultRecipeList, paramMap, new RecipeRowMapper());
+        return recipeSearchData;
+    }
+
     public String retrieveCookingTime(int idCookingTime) {
         String retrieveCookingTimeInfo = "SELECT name FROM cooking_time WHERE id = :id";
         Map<String, Object> paramMap = new HashMap<>();
