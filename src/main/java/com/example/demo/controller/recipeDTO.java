@@ -6,60 +6,57 @@ public class RecipeDTO {
     int cookingTime;
     int type;
     String notes;
-    String picture;
+//    Object picture;
     String instruction;
+
+//    public Object getPicture() {
+//        return picture;
+//    }
+//
+//    public RecipeDTO setPicture(Object picture) {
+//        this.picture = picture;
+//        return this;
+//    }
+
+
 
     public String getName() {
         return name;
     }
 
-    public RecipeDTO setName(String name) {
+    public void setName(String name) {
         this.name = name;
-        return this;
     }
 
     public int getCookingTime() {
         return cookingTime;
     }
 
-    public RecipeDTO setCookingTime(int cookingTime) {
+    public void setCookingTime(int cookingTime) {
         this.cookingTime = cookingTime;
-        return this;
     }
 
     public int getType() {
         return type;
     }
 
-    public RecipeDTO setType(int type) {
+    public void setType(int type) {
         this.type = type;
-        return this;
     }
 
     public String getNotes() {
         return notes;
     }
 
-    public RecipeDTO setNotes(String notes) {
+    public void setNotes(String notes) {
         this.notes = notes;
-        return this;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public RecipeDTO setPicture(String picture) {
-        this.picture = picture;
-        return this;
     }
 
     public String getInstruction() {
         return instruction;
     }
 
-    public RecipeDTO setInstruction(String instruction) {
+    public void setInstruction(String instruction) {
         this.instruction = instruction;
-        return this;
     }
 }

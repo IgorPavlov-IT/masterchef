@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-
 public class ChefService {
 
     @Autowired
@@ -16,9 +15,7 @@ public class ChefService {
     @Autowired
     private SignUpRepository signUpRepository;
 
-
     /*    public addRecipeToDB ();*/
-
     public void createNewUser(String firstName, String lastName, String username, String password) {
         chefRepository.createSqlUser(firstName, lastName, username, password);
     }
@@ -28,12 +25,14 @@ public class ChefService {
     }
 
 
-    public RecipeDTO showRecipe(int recipeID) {
-        return chefRepository.showRecipe(recipeID);
+    public RecipeDTO showRecipe (int recipeID) {
 
+        return chefRepository.showRecipe(recipeID);
     }
 
-    public List<RecipeDTO> showFullRecipeList() {
+
+    public List<RecipeWithClassificatorsDTO> showFullRecipeList () {
+
         return chefRepository.showFullRecipeTable();
     }
 
@@ -51,9 +50,9 @@ public class ChefService {
         return "ok";
     }
 
-    public SignUp getSignUp() {
+/*    public SignUp getSignUp() {
         System.out.println(signUpRepository.getOne(1));
         return signUpRepository.getOne(1);
-    }
+    }*/
 
 }

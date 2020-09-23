@@ -6,12 +6,12 @@ public class UserDTO {
     String username;
     String password;
 
-    public UserDTO(SignUp signUp) {                 //DTO for Hibernate
+/*    public UserDTO(SignUp signUp) {                 //DTO for Hibernate
         this.firstName = signUp.getFirstName();
         this.lastName = signUp.getLastName();
         this.username = signUp.getUsername();
         this.password = signUp.getPassword();
-    }
+    }*/
 
     public String getFirstName() {
         return firstName;
