@@ -1,46 +1,33 @@
 package com.example.demo.controller;
 
 public class RecipeDTO {
-
-    String name;
-    int cookingTime;
-    int type;
-    String notes;
-//    Object picture;
-    String instruction;
-
-//    public Object getPicture() {
-//        return picture;
-//    }
-//
-//    public RecipeDTO setPicture(Object picture) {
-//        this.picture = picture;
-//        return this;
-//    }
-
-
-
-    public String getName() {
-        return name;
-    }
+    private String name;
+    private Integer cookingTime;
+    private Integer type;
+    private String notes;
+    private String instruction;
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public int getCookingTime() {
+    public String getName() {
+        return name;
+    }
+
+    public Integer getCookingTime() {
         return cookingTime;
     }
 
-    public void setCookingTime(int cookingTime) {
+    public void setCookingTime(Integer cookingTime) {
         this.cookingTime = cookingTime;
     }
 
-    public int getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 

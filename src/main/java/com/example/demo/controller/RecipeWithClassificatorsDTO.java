@@ -1,12 +1,21 @@
 package com.example.demo.controller;
 
 public class RecipeWithClassificatorsDTO {
+    int id;
     String name;
     String cookingTime;
     String type;
     String notes;
 //    Object picture;
     String instruction;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

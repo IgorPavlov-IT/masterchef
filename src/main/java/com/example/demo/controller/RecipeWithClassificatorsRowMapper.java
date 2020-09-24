@@ -11,9 +11,10 @@ public class RecipeWithClassificatorsRowMapper implements RowMapper<RecipeWithCl
     @Override
     public RecipeWithClassificatorsDTO mapRow(ResultSet resultSet, int i) throws SQLException {
         RecipeWithClassificatorsDTO answer = new RecipeWithClassificatorsDTO();
+        answer.setId(resultSet.getInt("id"));
         answer.setName(resultSet.getString("name"));
-        answer.setCookingTime(resultSet.getString("cooking_time"));
-        answer.setType(resultSet.getString("meal_type"));
+        answer.setCookingTime(resultSet.getString("cooking_time_id"));
+        answer.setType(resultSet.getString("meal_type_id"));
         answer.setNotes(resultSet.getString("notes"));
         answer.setInstruction(resultSet.getString("instruction"));
 

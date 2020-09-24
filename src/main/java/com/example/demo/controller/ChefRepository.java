@@ -26,11 +26,11 @@ public class ChefRepository {
 
 
     public void createRecipe (RecipeDTO newRecipeData) {
-        String createRecipeString = "INSERT INTO recipe (name, cooking_time, type, notes, instruction) VALUES (:name, :cooking_time, :type, :notes, :instruction)";
+        String createRecipeString = "INSERT INTO recipe (name, cooking_time_id, meal_type_id, notes, instruction) VALUES (:name, :cooking_time_id, :meal_type_id, :notes, :instruction)";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", newRecipeData.getName());
-        paramMap.put("cooking_time", newRecipeData.getCookingTime());
-        paramMap.put("type", newRecipeData.getType());
+        paramMap.put("cooking_time_id", newRecipeData.getCookingTime());
+        paramMap.put("meal_type_id", newRecipeData.getType());
         paramMap.put("notes", newRecipeData.getNotes());
         paramMap.put("instruction", newRecipeData.getInstruction());
         jdbcTemplate.update(createRecipeString, paramMap);
@@ -47,9 +47,9 @@ public class ChefRepository {
 
 
     public List<RecipeWithClassificatorsDTO> showFullRecipeTable () {
-        String showFullRecipeList = "SELECT recipe.id, recipe.name, cooking_time.name cooking_time, meal_type.name meal_type, recipe.notes, recipe.instruction FROM recipe " +
-                "JOIN cooking_time ON recipe.cooking_time = cooking_time.id " +
-                "JOIN meal_type ON recipe.type = meal_type.id";
+        String showFullRecipeList = "SELECT recipe.id, recipe.name, cooking_time.name cooking_time_id, meal_type.name meal_type_id, recipe.notes, recipe.instruction FROM recipe " +
+                "JOIN cooking_time ON recipe.cooking_time_id = cooking_time.id " +
+                "JOIN meal_type ON recipe.meal_type_id = meal_type.id";
         Map<String, Object> paramMap = new HashMap<>();
         return jdbcTemplate.query(showFullRecipeList, paramMap, new RecipeWithClassificatorsRowMapper());
     }

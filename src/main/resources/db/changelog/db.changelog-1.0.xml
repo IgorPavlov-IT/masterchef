@@ -8,12 +8,12 @@
     <!--Kommenteerimise formaat-->
     <!--Siit algab esimene changeSet-->
 
-<!--        <column name="client_id" type="int">
-                <constraints nullable="true" primaryKey="true" unique="true"
-                             foreignKeyName="fk_account_client" references="client(id)"/>
-            </column>
+    <!--        <column name="client_id" type="int">
+                    <constraints nullable="true" primaryKey="true" unique="true"
+                                 foreignKeyName="fk_account_client" references="client(id)"/>
+                </column>
 
-            -->
+                -->
     <changeSet id="2020-09-16 the greatest beginning" author="Igor">
 
         <createTable tableName="ingredient">
@@ -99,57 +99,68 @@
     </changeSet>
 
     <changeSet id="2020-09-18 cooking-time table added" author="Kildu">
-       <createTable tableName="cooking_time">
-        <column name="id" type="int" autoIncrement="true">
-            <constraints nullable="false" primaryKey="true" unique="true"/>
-        </column>
-        <column name="name" type="text">
-            <constraints nullable="false" primaryKey="false" unique="true"/>
-        </column>
-    </createTable>
-        <modifyDataType  columnName="cooking_time"
-                         newDataType="int"
-                         tableName="recipe"/>
-        <addForeignKeyConstraint  baseColumnNames="cooking_time"
-                                  baseTableName="recipe"
-                                  constraintName="fk_cooking_time_recipe"
-                                  deferrable="true"
-                                  initiallyDeferred="true"
-                                  onDelete="CASCADE"
-                                  onUpdate="RESTRICT"
-                                  referencedColumnNames="id"
-                                  referencedTableName="cooking_time"
-                                  validate="true"/>
+        <createTable tableName="cooking_time">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="name" type="text">
+                <constraints nullable="false" primaryKey="false" unique="true"/>
+            </column>
+        </createTable>
+        <modifyDataType columnName="cooking_time"
+                        newDataType="int"
+                        tableName="recipe"/>
+        <addForeignKeyConstraint baseColumnNames="cooking_time"
+                                 baseTableName="recipe"
+                                 constraintName="fk_cooking_time_recipe"
+                                 deferrable="true"
+                                 initiallyDeferred="true"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cooking_time"
+                                 validate="true"/>
     </changeSet>
 
     <changeSet id="2020-09-20 add constants - cooking_time table" author="Kildu">
-        <insert  tableName="cooking_time">
-            <column  name="name"  value="below 15 min"/>
+        <insert tableName="cooking_time">
+            <column name="name" value="below 15 min"/>
         </insert>
-        <insert  tableName="cooking_time">
-            <column  name="name"  value="15 - 30 min"/>
+        <insert tableName="cooking_time">
+            <column name="name" value="15 - 30 min"/>
         </insert>
-        <insert  tableName="cooking_time">
-            <column  name="name"  value="30 - 60 min"/>
+        <insert tableName="cooking_time">
+            <column name="name" value="30 - 60 min"/>
         </insert>
-        <insert  tableName="cooking_time">
-            <column  name="name"  value="1 - 2 h"/>
+        <insert tableName="cooking_time">
+            <column name="name" value="1 - 2 h"/>
         </insert>
-        <insert  tableName="cooking_time">
-            <column  name="name"  value="2+ h"/>
+        <insert tableName="cooking_time">
+            <column name="name" value="2+ h"/>
         </insert>
     </changeSet>
 
     <changeSet id="2020-09-20 add constants - meal_type table" author="Kildu">
-        <insert  tableName="meal_type">
-            <column  name="name"  value="breakfast"/>
+        <insert tableName="meal_type">
+            <column name="name" value="breakfast"/>
         </insert>
-        <insert  tableName="meal_type">
-            <column  name="name"  value="lunch"/>
+        <insert tableName="meal_type">
+            <column name="name" value="lunch"/>
         </insert>
-        <insert  tableName="meal_type">
-            <column  name="name"  value="dinner"/>
+        <insert tableName="meal_type">
+            <column name="name" value="dinner"/>
         </insert>
+    </changeSet>
+
+    <changeSet id="2020-09-23 change names in recipe table" author="Kildu">
+        <renameColumn columnDataType="int"
+                      newColumnName="cooking_time_id"
+                      oldColumnName="cooking_time"
+                      tableName="recipe"/>
+        <renameColumn columnDataType="int"
+                      newColumnName="meal_type_id"
+                      oldColumnName="type"
+                      tableName="recipe"/>
     </changeSet>
 
 </databaseChangeLog>

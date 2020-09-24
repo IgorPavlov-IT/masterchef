@@ -41,6 +41,21 @@
                 font-size: 3.5rem;
             }
         }
+
+        th, td, p, input {
+            font: 14px Verdana;
+        }
+
+        table, th, td {
+            border: solid 1px #DDD;
+            border-collapse: collapse;
+            padding: 2px 3px;
+            text-align: center;
+        }
+
+        th {
+            font-weight: bold;
+        }
     </style>
     <!-- Custom styles for this template -->
     <!--    <link href="form-validation.css" rel="stylesheet">-->
@@ -138,43 +153,42 @@
     </div>
 
     <div class="row">
-        <p id="showData"></p>
-
         <div class="col-md-12 order-md-1">
             <h4 class="mb-3">Recipe list</h4>
-            <table align="center" border="5" height="100px" width="1024px">
-                <tr align="center" bgcolor="#ffffff" valign="middle">
-                    <td>Name</td>
-                    <td>Cooking time</td>
-                    <td>Notes</td>
-                    <td>Type</td>
-                    <td>Detailed view?</td>
-
+                  <!--<p id="showData"></p>-->
+            <table align="center" id="dynamicTable" border="5" height="100px" width="1024px">
+              <!--  <th align="center" bgcolor="#ffffff" valign="middle">-->
+                <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Cooking time</th>
+                <th>Meal type</th>
+                <th>Notes</th>
+                <th>Instructions</th>
                 </tr>
+                <!--</th>-->
 
-                <tr align="center" bgcolor="#ffffff" valign="middle">
-                    <td>Fried egg</td>
-                    <td>Easy</td>
-                    <td>I'm very good at making this</td>
-                    <td>Breakfast</td>
-                    <td> [button? link?]?</td>
-                </tr>
+                    <!--                    <td>Easy</td>
+                                        <td>I'm very good at making this</td>
+                                        <td>Breakfast</td>
+                                        <td> [button? link?]?</td>
+                                    </tr>
 
-                <tr align="center" bgcolor="#ffffff" valign="middle">
-                    <td>Boiled egg</td>
-                    <td>Easy</td>
-                    <td>I'm very good at making this also</td>
-                    <td>Breakfast</td>
-                    <td> [button? link?]?</td>
-                </tr>
+                                    <tr align="center" bgcolor="#ffffff" valign="middle">
+                                        <td>Boiled egg</td>
+                                        <td>Easy</td>
+                                        <td>I'm very good at making this also</td>
+                                        <td>Breakfast</td>
+                                        <td> [button? link?]?</td>
+                                    </tr>
 
-                <tr align="center" bgcolor="#ffffff" valign="middle">
-                    <td>Pasta</td>
-                    <td>Easy</td>
-                    <td>Mmmm pasta</td>
-                    <td>Breakfast</td>
-                    <td> [button? link?]?</td>
-                </tr>
+                                    <tr align="center" bgcolor="#ffffff" valign="middle">
+                                        <td>Pasta</td>
+                                        <td>Easy</td>
+                                        <td>Mmmm pasta</td>
+                                        <td>Breakfast</td>
+                                        <td> [button? link?]?</td>
+                                    </tr>-->
             </table>
         </div>
     </div>
@@ -196,70 +210,71 @@
         crossorigin="anonymous"></script>
 <script>
     window.onload = function () {         //see fun käivitub, kui leht avaneb
+        let dynamicHtmlTable = document.getElementById("dynamicTable");
 
 
-/*        /!*Create new user account*!/
-        let inputFirstName = document.getElementById("firstName");
-        let inputLastName = document.getElementById("lastName");
-        let inputUsername1 = document.getElementById("username1");
-        let inputPassword1 = document.getElementById("password1");
-        let buttonCreateAccount = document.getElementById("createAccount");*/
+        /*        /!*Create new user account*!/
+                let inputFirstName = document.getElementById("firstName");
+                let inputLastName = document.getElementById("lastName");
+                let inputUsername1 = document.getElementById("username1");
+                let inputPassword1 = document.getElementById("password1");
+                let buttonCreateAccount = document.getElementById("createAccount");*/
         /*buttonCreateAccount.addEventListener('click', function () {*/
 
-            fetch('masterchef/recipe/all', {
-                method: 'GET',
-                cache: 'no-cache',
-                headers: {
-                    'Content-Type': 'application/json'
-                }/*,*/
-/*                body: JSON.stringify({
-                    firstName: inputFirstName.value,
-                    lastName: inputLastName.value,
-                    username: inputUsername1.value,
-                    password: inputPassword1.value
-                })*/
+        fetch('masterchef/recipe/all', {
+            method: 'GET',
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json'
+            }/*,*/
+            /*                body: JSON.stringify({
+                                firstName: inputFirstName.value,
+                                lastName: inputLastName.value,
+                                username: inputUsername1.value,
+                                password: inputPassword1.value
+                            })*/
+        })
+            .then(function (response) {         //võtan kõik data koos headerite ja muuga ning võtan sellest ainult json'i
+                return response.json();
             })
-                .then(function (response) {         //võtan kõik data koos headerite ja muuga ning võtan sellest ainult json'i
-                    return response.json();
-                })
-                .then(function (jsonData) {         //siin saan andmetega midagi teha
-                    var col = [];                                   // EXTRACT VALUE FOR HTML HEADER.
-                    for (var i = 0; i < jsonData.length; i++) {
-                        for (var key in jsonData[i]) {
-                            if (col.indexOf(key) === -1) {
-                                col.push(key);
-                            }
+            .then(function (jsonData) {         //siin saan andmetega midagi teha
+                var col = [];                                   // EXTRACT VALUE FOR HTML HEADER.
+                for (var i = 0; i < jsonData.length; i++) {
+                    for (var key in jsonData[i]) {
+                        if (col.indexOf(key) === -1) {
+                            col.push(key);
                         }
                     }
-                    var table = document.createElement("table");    // CREATE DYNAMIC TABLE
-                    // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
-                    var tr = table.insertRow(-1);                   // TABLE ROW.
+                }
+                /*var table = document.createElement("table");    */// CREATE DYNAMIC TABLE
+                // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+               /* var tr = table.insertRow(-1);                   // TABLE ROW.
 
-                    for (var i = 0; i < col.length; i++) {
-                        var th = document.createElement("th");      // TABLE HEADER.
-                        th.innerHTML = col[i];
-                        tr.appendChild(th);
+                for (var i = 0; i < col.length; i++) {
+                    var th = document.createElement("th");      // TABLE HEADER.
+                    th.innerHTML = col[i];
+                    tr.appendChild(th);
+                }*/
+                // ADD JSON DATA TO THE TABLE AS ROWS.
+                for (var i = 0; i < jsonData.length; i++) {
+
+                    tr = dynamicTable.insertRow(-1);
+
+                    for (var j = 0; j < col.length; j++) {
+                        var tabCell = tr.insertCell(-1);
+                        tabCell.innerHTML = jsonData[i][col[j]];
                     }
-                    // ADD JSON DATA TO THE TABLE AS ROWS.
-                    for (var i = 0; i < jsonData.length; i++) {
+                }
+                // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+                var tdContainer = document.getElementById("showData");
+                tdContainer.innerHTML = "";
+                tdContainer.appendChild(dynamicTable);
 
-                        tr = table.insertRow(-1);
-
-                        for (var j = 0; j < col.length; j++) {
-                            var tabCell = tr.insertCell(-1);
-                            tabCell.innerHTML = jsonData[i][col[j]];
-                        }
-                    }
-                    // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-                    var divContainer = document.getElementById("showData");
-                    divContainer.innerHTML = "";
-                    divContainer.appendChild(table);
-
-                })
-                .catch(function (err) {
-                    console.log(err);
-                });
-      /*  })*/
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+        /*  })*/
     }
 </script>
 
