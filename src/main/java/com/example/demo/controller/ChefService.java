@@ -24,15 +24,23 @@ public class ChefService {
         chefRepository.createRecipe(newRecipeData);
     }
 
+
     public RecipeDTO showRecipe (int recipeID) {
+
         return chefRepository.showRecipe(recipeID);
     }
 
+
     public List<RecipeWithClassificatorsDTO> showFullRecipeList () {
+
         return chefRepository.showFullRecipeTable();
     }
 
-    public String retrieveCookingTime (int tempInput) {
+    public List<RecipeDTO> showSearchResultList(String searchWord) {
+        return chefRepository.showRecipeSearchList(searchWord);
+    }
+
+    public String retrieveCookingTime(int tempInput) {
         chefRepository.retrieveCookingTime(tempInput);
         return "ok";
     }
