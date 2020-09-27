@@ -12,14 +12,12 @@ public class RecipeRowMapper implements RowMapper<RecipeDTO> {
     public RecipeDTO mapRow(ResultSet resultSet, int i) throws SQLException {
         RecipeDTO answer = new RecipeDTO();
         answer.setName(resultSet.getString("name"));
-        answer.setCookingTime(resultSet.getInt("cooking_time"));
-        answer.setType(resultSet.getInt("type"));
+        answer.setCookingTime(resultSet.getInt("cooking_time_id"));
+        answer.setType(resultSet.getInt("meal_type_id"));
+//        answer.set
         answer.setNotes(resultSet.getString("notes"));
         answer.setInstruction(resultSet.getString("instruction"));
-
         return answer;
-
     }
-
 }
 

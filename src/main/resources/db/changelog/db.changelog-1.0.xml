@@ -163,4 +163,134 @@
                       tableName="recipe"/>
     </changeSet>
 
+    <changeSet id="2020-09-26 add doShow column to recipe_ingredient and ingredient to recipe table" author="Kildu">
+        <addColumn  tableName="recipe">
+            <column  name="ingredient"  type="text">
+                <constraints  nullable="true"  primaryKey="false"  unique="false"/>
+            </column>
+        </addColumn>
+        <addColumn  tableName="recipe_ingredient">
+            <column  name="doShow"  type="text">
+                <constraints  nullable="true"  primaryKey="false"  unique="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="2020-09-26 add ingredients to ingredient table" author="Kildu">
+        <insert tableName="ingredient">
+            <column name="name" value="flour"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="onion"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="garlic"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="cheese"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="greek yogurt"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="cream"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="butter"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="eggs"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="pork"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="beef"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="chicken"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="green beans"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="tomatoes"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="cucumber"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="zucchini"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="cauliflower"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="mushrooms"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="milk"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="carrots"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="potatoes"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="blueberries"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="strawberries"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="raspberries"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="salt"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="sugar"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="black pepper"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="basil"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="parsley"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="dill"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="olive oil"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="white wine"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="red wine"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="pasta"/>
+        </insert>
+        <insert tableName="ingredient">
+            <column name="name" value="baking powder"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="2020-09-27 change column name doShow and add ingredients column to recipe" author="Kildu">
+        <renameColumn columnDataType="int"
+                      newColumnName="show_in_recipe"
+                      oldColumnName="doShow"
+                      tableName="recipe_ingredient"/>
+        <addColumn  tableName="recipe">
+            <column  name="selected_ingredients"  type="text">
+                <constraints  nullable="true"  primaryKey="false"  unique="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

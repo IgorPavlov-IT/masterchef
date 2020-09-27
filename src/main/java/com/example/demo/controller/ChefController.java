@@ -2,10 +2,7 @@ package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,12 +16,12 @@ public class ChefController {
     @PostMapping("masterchef/user")
     public void createUser(@RequestBody UserDTO users) {
         chefService.createNewUser(users.getFirstName(), users.getLastName(), users.getUsername(), users.getPassword());
-    }   // web:   http://localhost:8080/masterchef/user
+    }   // web:   http://localhost:8080/masterchef/user     login.html
 
     @PostMapping("masterchef/recipe/add")
-    public void createRecipe(@RequestBody RecipeDTO newRecipeData) {
+    public void createRecipe(@RequestBody RecipeWithIngredientsDTO newRecipeData) {
         chefService.createRecipe(newRecipeData);
-    }   // web:   http://localhost:8080/masterchef/recipe/add
+    }   // web:   http://localhost:8080/masterchef/recipe/add   createRecipe.html
 
 /*    @GetMapping("masterchef/user")
     public UserDTO getUser() {
@@ -34,16 +31,19 @@ public class ChefController {
 
 
     @GetMapping("masterchef/recipe/display")
-    public String showRecipe(@RequestBody int recipeID) {
-        chefService.showRecipe(recipeID);
-        return "OK";
-
-    }
+    public RecipeDTO showRecipe(@RequestBody int recipeID) {
+        return chefService.showRecipe(recipeID);
+    }   // web: http://localhost:8080/masterchef/recipe/display
 
     @GetMapping("masterchef/recipe/all")
     public List<RecipeWithClassificatorsDTO> showFullRecipeList() {
         return chefService.showFullRecipeList();
     }   // web:   http://localhost:8080/masterchef/recipe/all
+
+    @GetMapping("masterchef/recipe/add")
+    public List<IngredientNameDTO> loadIngredientList() {
+       return chefService.getIngredientList();
+    }   // web:   http://localhost:8080/masterchef/recipe/add       createRecipe.html
 
 //    @GetMapping ("masterchef/recipe/searchresult")
 //    public String searchRecipeList

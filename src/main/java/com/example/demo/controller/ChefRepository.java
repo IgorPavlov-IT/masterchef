@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -24,8 +27,7 @@ public class ChefRepository {
         jdbcTemplate.update(sql, paramMap);
     }
 
-
-    public void createRecipe (RecipeDTO newRecipeData) {
+/*    public void createRecipe(RecipeDTO newRecipeData) {       //See on eelmine versioon ilma ingredients'deta
         String createRecipeString = "INSERT INTO recipe (name, cooking_time_id, meal_type_id, notes, instruction) VALUES (:name, :cooking_time_id, :meal_type_id, :notes, :instruction)";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", newRecipeData.getName());
@@ -34,9 +36,37 @@ public class ChefRepository {
         paramMap.put("notes", newRecipeData.getNotes());
         paramMap.put("instruction", newRecipeData.getInstruction());
         jdbcTemplate.update(createRecipeString, paramMap);
+            }*/
 
+    public void createRecipe(RecipeWithIngredientsDTO newRecipeData) {
+        String createRecipeString = "INSERT INTO recipe (name, cooking_time_id, meal_type_id, notes, instruction) VALUES (:name, :cooking_time_id, :meal_type_id, :notes, :instruction)";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("name", newRecipeData.getName());
+        paramMap.put("cooking_time_id", newRecipeData.getCookingTime());
+        paramMap.put("meal_type_id", newRecipeData.getType());
+        paramMap.put("notes", newRecipeData.getNotes());
+        paramMap.put("instruction", newRecipeData.getInstruction());
+        jdbcTemplate.update(createRecipeString, paramMap);
+    }
 
-       public RecipeDTO showRecipe (int recipeID) {
+    public int createRecipeIngredient(Integer recipeId, IngredientsDTO newRecipeData) {
+        String sql = "INSERT INTO recipe_ingredient (recipe_id, ingredient_id, qty, unit) VALUES (:recipeId, :ingredientId, :qty, :unit)";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("recipeId", recipeId);
+        paramMap.put("ingredientId", newRecipeData.getIngredient());
+        paramMap.put("qty", newRecipeData.getQuantity());
+        paramMap.put("unit", newRecipeData.getUnit());
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(sql, new MapSqlParameterSource(paramMap), keyHolder);
+        return (int) keyHolder.getKeys().get("id");
+    }
+
+    public Integer createRecipe(Integer cookingTime, String instruction, Integer type, String name, String notes) {
+        String sql = "INSERT INTO () values ()";
+        return 0;
+    }
+
+    public RecipeDTO showRecipe(int recipeID) {
         String showRecipeString = "SELECT * FROM recipe WHERE id = :id";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", recipeID);
@@ -45,8 +75,7 @@ public class ChefRepository {
         return RecipeDTO;
     }
 
-
-    public List<RecipeWithClassificatorsDTO> showFullRecipeTable () {
+    public List<RecipeWithClassificatorsDTO> showFullRecipeTable() {
         String showFullRecipeList = "SELECT recipe.id, recipe.name, cooking_time.name cooking_time_id, meal_type.name meal_type_id, recipe.notes, recipe.instruction FROM recipe " +
                 "JOIN cooking_time ON recipe.cooking_time_id = cooking_time.id " +
                 "JOIN meal_type ON recipe.meal_type_id = meal_type.id";
@@ -76,5 +105,11 @@ public class ChefRepository {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", idMealType);
         return jdbcTemplate.queryForObject(retrieveMealTypeInfo, paramMap, String.class);
+    }
+
+    public List<IngredientNameDTO> getIngredientList() {
+        String sql = "SELECT * FROM ingredient ORDER BY name";
+        List<IngredientNameDTO> resultList = jdbcTemplate.query(sql, new IngredientRowMapper());
+        return resultList;
     }
 }
