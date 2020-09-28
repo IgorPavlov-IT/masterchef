@@ -293,4 +293,85 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="2020-09-28 create unit table and load units to the table" author="Kildu">
+        <createTable tableName="unit">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="name" type="text">
+                <constraints nullable="false" primaryKey="false" unique="true"/>
+            </column>
+        </createTable>
+        <dropColumn  tableName="recipe_ingredient">
+            <column  name="unit"/>
+        </dropColumn>
+        <addColumn  tableName="recipe_ingredient">
+            <column  name="unit_id"  type="int">
+                <constraints  nullable="false"  primaryKey="false"  unique="false"/>
+            </column>
+        </addColumn>
+        <addForeignKeyConstraint baseColumnNames="unit_id"
+                                 baseTableName="recipe_ingredient"
+                                 constraintName="fk_recipe_ingredient_unit"
+                                 deferrable="true"
+                                 initiallyDeferred="true"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="unit"
+                                 validate="true"/>
+        <insert tableName="unit">
+            <column name="name" value="cm"/>
+        </insert>
+        <insert tableName="unit">
+            <column name="name" value="cup"/>
+        </insert>
+        <insert tableName="unit">
+            <column name="name" value="dl"/>
+        </insert>
+        <insert tableName="unit">
+            <column name="name" value="g"/>
+        </insert>
+        <insert tableName="unit">
+            <column name="name" value="kg"/>
+        </insert>
+        <insert tableName="unit">
+            <column name="name" value="l"/>
+        </insert>
+        <insert tableName="unit">
+            <column name="name" value="m"/>
+        </insert>
+        <insert tableName="unit">
+            <column name="name" value="mg"/>
+        </insert>
+        <insert tableName="unit">
+            <column name="name" value="ml"/>
+        </insert>
+        <insert tableName="unit">
+            <column name="name" value="mm"/>
+        </insert>
+        <insert tableName="unit">
+            <column name="name" value="pc(s)"/>
+        </insert>
+        <insert tableName="unit">
+            <column name="name" value="tablespoon"/>
+        </insert>
+        <insert tableName="unit">
+            <column name="name" value="teaspoon"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="2020-09-28 drop column recipe ingredient, recipe_ingredient show_in_recipe change to Boolean" author="Kildu">
+        <dropColumn  tableName="recipe">
+            <column  name="ingredient"/>
+        </dropColumn>
+        <dropColumn  tableName="recipe_ingredient">
+            <column  name="show_in_recipe"/>
+        </dropColumn>
+        <addColumn  tableName="recipe_ingredient">
+            <column  name="show_in_recipe"  type="boolean">
+                <constraints  nullable="false"  primaryKey="false"  unique="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

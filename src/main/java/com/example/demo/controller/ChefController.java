@@ -40,9 +40,14 @@ public class ChefController {
         return chefService.showFullRecipeList();
     }   // web:   http://localhost:8080/masterchef/recipe/all
 
-    @GetMapping("masterchef/recipe/add")
+/*    @GetMapping("masterchef/recipe/add")
     public List<IngredientNameDTO> loadIngredientList() {
        return chefService.getIngredientList();
+    }   // web:   http://localhost:8080/masterchef/recipe/add       createRecipe.html*/
+
+    @GetMapping("masterchef/recipe/add")
+    public ClassificatorsResponse loadIngredientList() {
+        return chefService.getSelectInput();
     }   // web:   http://localhost:8080/masterchef/recipe/add       createRecipe.html
 
 //    @GetMapping ("masterchef/recipe/searchresult")
