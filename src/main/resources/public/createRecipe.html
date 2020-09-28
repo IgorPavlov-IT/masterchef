@@ -1,28 +1,29 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+<head>
     <meta charset="utf-8">
-    <meta http-equiv="Cache-Control" content="NO-CACHE">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v4.1.1">
-    <title></title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/checkout/">
+    <title>Display recipe</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/jumbotron/">
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- Favicons -->
-<!--    <link rel="apple-touch-icon" href="/docs/4.5/assets/img/favicons/apple-touch-icon.png" sizes="180x180">-->
-<!--    <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">-->
-<!--    <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">-->
-<!--    <link rel="manifest" href="/docs/4.5/assets/img/favicons/manifest.json">-->
-<!--    <link rel="mask-icon" href="/docs/4.5/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">-->
-<!--    <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon.ico">-->
-<!--    <meta name="msapplication-config" content="/docs/4.5/assets/img/favicons/browserconfig.xml">-->
+    <link rel="apple-touch-icon" href="/docs/4.5/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="mask-icon" href="/docs/4.5/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+    <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon.ico">
+    <meta name="msapplication-config" content="/docs/4.5/assets/img/favicons/browserconfig.xml">
     <meta name="theme-color" content="#563d7c">
-
 
     <style>
         .bd-placeholder-img {
@@ -39,177 +40,266 @@
                 font-size: 3.5rem;
             }
         }
+
+        table {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /*        tr:hover {
+                    background-color: #f5f5f5;
+                }*/
     </style>
     <!-- Custom styles for this template -->
-    <!--    <link href="form-validation.css" rel="stylesheet">-->
-    <script type="text/javascript">// Promises
-    var _eid_promises = {};
-    // Turn the incoming message from extension
-    // into pending Promise resolving
-    window.addEventListener("message", function(event) {
-        if(event.source !== window) return;
-        if(event.data.src && (event.data.src === "background.js")) {
-            console.log("Page received: ");
-            console.log(event.data);
-            // Get the promise
-            if(event.data.nonce) {
-                var p = _eid_promises[event.data.nonce];
-                // resolve
-                if(event.data.result === "ok") {
-                    if(event.data.signature !== undefined) {
-                        p.resolve({hex: event.data.signature});
-                    } else if(event.data.version !== undefined) {
-                        p.resolve(event.data.extension + "/" + event.data.version);
-                    } else if(event.data.cert !== undefined) {
-                        p.resolve({hex: event.data.cert});
-                    } else {
-                        console.log("No idea how to handle message");
-                        console.log(event.data);
-                    }
-                } else {
-                    // reject
-                    p.reject(new Error(event.data.result));
-                }
-                delete _eid_promises[event.data.nonce];
-            } else {
-                console.log("No nonce in event msg");
-            }
-        }
-    }, false);
-
-
-    function TokenSigning() {
-        function nonce() {
-            var val = "";
-            var hex = "abcdefghijklmnopqrstuvwxyz0123456789";
-            for(var i = 0; i < 16; i++) val += hex.charAt(Math.floor(Math.random() * hex.length));
-            return val;
-        }
-
-        function messagePromise(msg) {
-            return new Promise(function(resolve, reject) {
-                // amend with necessary metadata
-                msg["nonce"] = nonce();
-                msg["src"] = "page.js";
-                // send message
-                window.postMessage(msg, "*");
-                // and store promise callbacks
-                _eid_promises[msg.nonce] = {
-                    resolve: resolve,
-                    reject: reject
-                };
-            });
-        }
-        this.getCertificate = function(options) {
-            var msg = {type: "CERT", lang: options.lang, filter: options.filter};
-            console.log("getCertificate()");
-            return messagePromise(msg);
-        };
-        this.sign = function(cert, hash, options) {
-            var msg = {type: "SIGN", cert: cert.hex, hash: hash.hex, hashtype: hash.type, lang: options.lang, info: options.info};
-            console.log("sign()");
-            return messagePromise(msg);
-        };
-        this.getVersion = function() {
-            console.log("getVersion()");
-            return messagePromise({
-                type: "VERSION"
-            });
-        };
-    }</script></head>
-<body class="bg-light">
-
+    <link href="jumbotron.css" rel="stylesheet">
+</head>
+<body>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-success">
-    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="navbar-collapse collapse" id="navbarsExampleDefault" style="">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#">Home <span class="sr-only" >(current)</span></a>
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-
             </li>
             <li class="nav-item">
-
             </li>
-
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control my-sm-2" type="text" placeholder="Name or Keyword" aria-label="Search">
-            <button class="btn btn-outline-light my-2 my-sm-0" style="margin-left: 10px" type="submit">Search recipes</button>
-            <button class="btn btn-outline-light " href="#" style="margin-right: 0px; margin-left: 25px">Sign in </button>
-
+            <button class="btn btn-outline-light my-2 my-sm-0" style="margin-left: 10px" type="submit">Search recipes
+            </button>
+            <button class="btn btn-outline-light " href="#" style="margin-right: 0px; margin-left: 25px">Sign in
+            </button>
         </form>
     </div>
 </nav>
-<br>
-<br>
+<main role="main">
+    <div class="jumbotron text-center">
+        <div class="row mb-2">
+            <td class="col-md-4">
+                <table>
+                    <tr>
+                        <td align="right" style="vertical-align:bottom;padding-bottom: 4px">Recipe name</td>
+                        <td align="left"><input type="text" id="recipeName" class="form_control"
+                                                style="margin-left:15px;margin-top:40px"/></td>
+                    </tr>
 
-
-<div class="container">
-    <div class="py-5 text-center">
-        <img class="d-block mx-auto mb-4" src="bootstrap-solid.svg" alt="" width="72" height="72">
-        <h2>Delete if not used</h2>
-        <p class="lead"> Not final version of page.</p>
-    </div>
-
-    <div class="row">
-
-        <div class="col-md-12 order-md-1">
-            <h4 class="mb-3">Create new recipe</h4>
-            <form class="needs-validation" novalidate="">
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="recipeName">Recipe name</label>
-                        <input type="text" class="form-control" id="recipeName" placeholder="" value="" required="">
-                        <div class="invalid-feedback">
-                            Valid first name is required.
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="easeOfPrep">Cooking time</label>
-                        <input type="text" class="form-control" id="easeOfPrep" placeholder="" value="" required="">
-                        <div class="invalid-feedback">
-                            Valid last name is required.
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="type">Type of Dish</label>
-                        <input type="text" class="form-control" id="type" placeholder="" value="" >
-                        <div class="invalid-feedback">
-                            Valid password is required.
-                        </div>
-                    </div>
+                    <tr>
+                        <td align="right" style="vertical-align:bottom">Cooking time</td>
+                        <td align="left" style="padding-left: 1px">
+                            <select name="Cooking time" id="cookingTime" style="margin-left:15px;margin-top:20px">
+                                <option value="1">below 15 min</option>
+                                <option value="2">15 - 30 min</option>
+                                <option value="3">30 - 60 min</option>
+                                <option value="4">1 - 2 h</option>
+                                <option value="5">2+ h</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="vertical-align:bottom;padding-bottom: 4px">Meal type</td>
+                        <td align="left" style="padding-left: 1px">
+                            <select name="Meal type" id="type" style="margin-left:15px;margin-top:20px">
+                                <option value="1">breakfast</option>
+                                <option value="2">lunch</option>
+                                <option value="3">dinner</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="vertical-align:bottom;padding-bottom: 6px">Instruction</td>
+                        <td align="left"><input type="text" id="instruction" class="input-xxlarge"
+                                                style="margin-left:15px;margin-top:20px"/></td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="vertical-align:bottom;padding-bottom: 6px">Picture</td>
+                        <td align="left"><input type="text" id="picture" class="input-xxlarge"
+                                                style="margin-left:15px;margin-top:20px"/></td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="vertical-align:bottom;padding-bottom: 6px">Notes</td>
+                        <td align="left"><input type="text" id="notes" style="margin-left:15px;margin-top:20px"/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><a class="btn btn-success btn-md" id="createRecipe" href="#" role="button"
+                               style="margin-top:25px;margin-left: 18px">Create
+                            recipe</a></td>
+                    </tr>
+                </table>
+                <div class="col-md-4">
+                    <table align="center" id="dynamicTable" border="1" bordercolor=#D3D3D3
+                           style="width: 90%;margin-left:15px;margin-top:40px">
+                        <tr>
+                            <th>Ingredient</th>
+                            <th>Quantity</th>
+                            <th>Unit</th>
+                        </tr>
+                    </table>
                 </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="notes">Notes</label>
-                        <input type="text" class="form-control" id="notes" placeholder="" value="" >
-                        <div class="invalid-feedback">
-                            Valid username is required.
-                        </div>
-                    </div>
-
+                <div class="col-md-4">
+                    <form>
+                        <table>
+                            <tr>
+                                <td align="right" style="vertical-align:bottom;padding-bottom: 6px">Ingredient</td>
+                                <td align="left" style="padding-left: 16px">
+                                    <select name="ingredientList" id="ingredient"
+                                            style="margin-top:20px">
+                                        <option value="">Pick ingredient</option>       // igor - Kas jätame esialgsesse view'sse mingi teksti w mitte?
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" style="vertical-align:bottom;padding-bottom: 6px">Quantity</td>
+                                <td align="left"><input type="text" id="quantity"
+                                                        style="margin-left:15px;margin-top:20px"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" style="vertical-align:bottom;padding-bottom: 6px">Unit</td>
+                                <td align="left" style="padding-left: 16px">
+                                    <select name="unitList" id="unit" style="margin-top:20px"/>
+                                    <option value=""></option>option>
+                                    <option value="1">cm</option>
+                                    <option value="2">cup</option>
+                                    <option value="3">dl</option>
+                                    <option value="4">g</option>
+                                    <option value="5">kg</option>
+                                    <option value="6">l</option>
+                                    <option value="7">m</option>
+                                    <option value="8">mg</option>
+                                    <option value="9">ml</option>
+                                    <option value="10">mm</option>
+                                    <option value="11">pc(s)</option>
+                                    <option value="12">tablespoon</option>
+                                    <option value="13">teaspoon</option>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" style="vertical-align:bottom;padding-bottom: 6px">Display in list</td>
+                                <td align="left" style="padding-left: 16px">
+                                    <select name="Show in list" id="displayInList"
+                                            style="margin-top:20px">
+                                        <option value="1">Yes</option>
+                                        <option value="2">No</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td align="center"><a class="btn btn-success btn-md" id="loadIngredient" href="#"
+                                                      role="button" style="margin-top:25px;margin-left: 20px">Load
+                                    ingredient</a></td>
+                            </tr>
+                        </table>
+                    </form>
                 </div>
-
-
-                <button class="btn btn-success btn-lg btn-block" type="submit">Create Recipe</button>
-            </form>
         </div>
     </div>
+    </div>
+</main>
+<footer class="container">
+    <p>© Best Cooking App 2020 Award Winner</p>
+</footer>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+<script>
+    /*Add ingredient list and units to Select form*/
+    window.onload = function () {
+        let selectIngredient = document.getElementById("ingredient");
+
+        fetch('masterchef/recipe/add', {
+            method: 'GET',
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (jsonData) {         //siin saan andmetega midagi teha
+                // ADD JSON DATA TO THE SELECT FORM
+                for (let i = 0; i < jsonData.length; i++) {
+                    let option = document.createElement('option')
+                    option.text = jsonData[i].name;
+                    option.value = jsonData[i].id;
+                    selectIngredient.add(option);
+                }
+            })
+            .catch(function (err) {
+                console.log(err);
+            })
+    }
+
+    /*Create new recipe*/
+    let inputRecipeName = document.getElementById("recipeName");
+    let inputCookingTime = document.getElementById("cookingTime");
+    let inputType = document.getElementById("type");
+    let inputInstruction = document.getElementById("instruction");
+    /*    let inputPicture = document.getElementById("picture");*/
+    let inputNotes = document.getElementById("notes");
+    let buttonCreateRecipe = document.getElementById("createRecipe");
+
+    /*Add ingredients to recipe input*/
+    let inputIngredient = document.getElementById("ingredient");
+    let inputQuantity = document.getElementById("quantity");
+    let inputUnit = document.getElementById("unit");
+    let inputDynamicTable = document.getElementById("dynamicTable");
+    let buttonLoadIngredient = document.getElementById("loadIngredient");
 
 
-    <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">© 2017-2020</p>           <!-- Watermark tekst (copyright) lehe all osas. -->
+    /*Transfer inserted ingredient to HTML table for recipe creation*/
+    buttonLoadIngredient.addEventListener('click', function () {
+        let tr = inputDynamicTable.insertRow(-1);
+        let tabCell = tr.insertCell(-1);
+        tabCell.innerHTML = inputIngredient.options[inputIngredient.selectedIndex].text;
+        let tabCell2 = tr.insertCell(-1);
+        tabCell2.innerHTML = inputQuantity.value;
+        let tabCell3 = tr.insertCell(-1);
+        tabCell3.innerHTML = inputUnit.options[inputUnit.selectedIndex].text;
+    })
 
-    </footer>
-</div>                                                               <!-- All muud scriptid mida jooksutatakse. -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    buttonCreateRecipe.addEventListener('click', function () {
+        fetch('masterchef/recipe/add', {
+            method: 'POST',
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: inputRecipeName.value,
+                cookingTime: inputCookingTime.options[inputCookingTime.selectedIndex].value,
+                type: inputType.options[inputType.selectedIndex].value,
+                instruction: inputInstruction.value,
+                /*                picture: inputPicture.value,*/
+                notes: inputNotes.value,
+                for(let i = 0; i < inputDynamicTable.rows.length; i++) {           //Kuidas lisan ingredients Listi
+                for(let j = 0; j < inputDynamicTable.rows.length; i++) {
 
 
-</body></html>
+        //ingredients:
+            }
+        }
+            })
+        })
+            .then(function (jsonData) {
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+/*        inputRecipeName.value = "";
+        inputCookingTime.value = "";
+        inputNotes.value = "";
+        inputInstruction.value = "";*/
+    })
+</script>
+</body>
+</html>
