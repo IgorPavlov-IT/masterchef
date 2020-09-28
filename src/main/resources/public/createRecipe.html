@@ -93,11 +93,7 @@
                         <td align="right" style="vertical-align:bottom">Cooking time</td>
                         <td align="left" style="padding-left: 1px">
                             <select name="Cooking time" id="cookingTime" style="margin-left:15px;margin-top:20px">
-                                <option value="1">below 15 min</option>
-                                <option value="2">15 - 30 min</option>
-                                <option value="3">30 - 60 min</option>
-                                <option value="4">1 - 2 h</option>
-                                <option value="5">2+ h</option>
+                                <option value=""></option>
                             </select>
                         </td>
                     </tr>
@@ -105,9 +101,7 @@
                         <td align="right" style="vertical-align:bottom;padding-bottom: 4px">Meal type</td>
                         <td align="left" style="padding-left: 1px">
                             <select name="Meal type" id="type" style="margin-left:15px;margin-top:20px">
-                                <option value="1">breakfast</option>
-                                <option value="2">lunch</option>
-                                <option value="3">dinner</option>
+                                <option value=""></option>
                             </select>
                         </td>
                     </tr>
@@ -139,6 +133,7 @@
                             <th>Ingredient</th>
                             <th>Quantity</th>
                             <th>Unit</th>
+                            <th>Show in list</th>
                         </tr>
                     </table>
                 </div>
@@ -150,7 +145,7 @@
                                 <td align="left" style="padding-left: 16px">
                                     <select name="ingredientList" id="ingredient"
                                             style="margin-top:20px">
-                                        <option value="">Pick ingredient</option>       // igor - Kas jätame esialgsesse view'sse mingi teksti w mitte?
+                                        <option value=""></option>
                                     </select>
                                 </td>
                             </tr>
@@ -164,20 +159,7 @@
                                 <td align="right" style="vertical-align:bottom;padding-bottom: 6px">Unit</td>
                                 <td align="left" style="padding-left: 16px">
                                     <select name="unitList" id="unit" style="margin-top:20px"/>
-                                    <option value=""></option>option>
-                                    <option value="1">cm</option>
-                                    <option value="2">cup</option>
-                                    <option value="3">dl</option>
-                                    <option value="4">g</option>
-                                    <option value="5">kg</option>
-                                    <option value="6">l</option>
-                                    <option value="7">m</option>
-                                    <option value="8">mg</option>
-                                    <option value="9">ml</option>
-                                    <option value="10">mm</option>
-                                    <option value="11">pc(s)</option>
-                                    <option value="12">tablespoon</option>
-                                    <option value="13">teaspoon</option>
+                                    <option value=""></option>
                                 </td>
                             </tr>
                             <tr>
@@ -185,8 +167,8 @@
                                 <td align="left" style="padding-left: 16px">
                                     <select name="Show in list" id="displayInList"
                                             style="margin-top:20px">
-                                        <option value="1">Yes</option>
-                                        <option value="2">No</option>
+                                        <option value="false">No</option>
+                                        <option value="true">Yes</option>
                                     </select>
                                 </td>
                             </tr>
@@ -211,9 +193,13 @@
         crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
 <script>
+    let ingredientData = [];
     /*Add ingredient list and units to Select form*/
     window.onload = function () {
         let selectIngredient = document.getElementById("ingredient");
+        let selectUnit = document.getElementById("unit");
+        let selectCookingTime = document.getElementById("cookingTime");
+        let selectType = document.getElementById("type");
 
         fetch('masterchef/recipe/add', {
             method: 'GET',
@@ -227,11 +213,29 @@
             })
             .then(function (jsonData) {         //siin saan andmetega midagi teha
                 // ADD JSON DATA TO THE SELECT FORM
-                for (let i = 0; i < jsonData.length; i++) {
+                for (let i = 0; i < jsonData.ingredients.length; i++) {
                     let option = document.createElement('option')
-                    option.text = jsonData[i].name;
-                    option.value = jsonData[i].id;
+                    option.text = jsonData.ingredients[i].name;
+                    option.value = jsonData.ingredients[i].id;
                     selectIngredient.add(option);
+                }
+                for (let i = 0; i < jsonData.units.length; i++) {
+                    let option = document.createElement('option')
+                    option.text = jsonData.units[i].name;
+                    option.value = jsonData.units[i].id;
+                    selectUnit.add(option);
+                }
+                for (let i = 0; i < jsonData.cookingTime.length; i++) {
+                    let option = document.createElement('option')
+                    option.text = jsonData.cookingTime[i].name;
+                    option.value = jsonData.cookingTime[i].id;
+                    selectCookingTime.add(option);
+                }
+                for (let i = 0; i < jsonData.mealType.length; i++) {
+                    let option = document.createElement('option')
+                    option.text = jsonData.mealType[i].name;
+                    option.value = jsonData.mealType[i].id;
+                    selectType.add(option);
                 }
             })
             .catch(function (err) {
@@ -252,9 +256,9 @@
     let inputIngredient = document.getElementById("ingredient");
     let inputQuantity = document.getElementById("quantity");
     let inputUnit = document.getElementById("unit");
+    let inputDisplayInList = document.getElementById("displayInList");
     let inputDynamicTable = document.getElementById("dynamicTable");
     let buttonLoadIngredient = document.getElementById("loadIngredient");
-
 
     /*Transfer inserted ingredient to HTML table for recipe creation*/
     buttonLoadIngredient.addEventListener('click', function () {
@@ -265,6 +269,11 @@
         tabCell2.innerHTML = inputQuantity.value;
         let tabCell3 = tr.insertCell(-1);
         tabCell3.innerHTML = inputUnit.options[inputUnit.selectedIndex].text;
+        let tabCell4 = tr.insertCell(-1);
+        tabCell4.innerHTML = inputDisplayInList.value;
+        ingredientData.push({ingredient: inputIngredient.selectedIndex,
+                    quantity: inputQuantity.value,
+                    unit: inputUnit.selectedIndex});
     })
 
     buttonCreateRecipe.addEventListener('click', function () {
@@ -281,13 +290,7 @@
                 instruction: inputInstruction.value,
                 /*                picture: inputPicture.value,*/
                 notes: inputNotes.value,
-                for(let i = 0; i < inputDynamicTable.rows.length; i++) {           //Kuidas lisan ingredients Listi
-                for(let j = 0; j < inputDynamicTable.rows.length; i++) {
-
-
-        //ingredients:
-            }
-        }
+                ingredients: ingredientData
             })
         })
             .then(function (jsonData) {

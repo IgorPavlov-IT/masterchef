@@ -38,7 +38,7 @@ public class ChefRepository {
         jdbcTemplate.update(createRecipeString, paramMap);
             }*/
 
-    public void createRecipe(RecipeWithIngredientsDTO newRecipeData) {
+    public int createRecipe(RecipeWithIngredientsDTO newRecipeData) {
         String createRecipeString = "INSERT INTO recipe (name, cooking_time_id, meal_type_id, notes, instruction) VALUES (:name, :cooking_time_id, :meal_type_id, :notes, :instruction)";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", newRecipeData.getName());
@@ -46,7 +46,14 @@ public class ChefRepository {
         paramMap.put("meal_type_id", newRecipeData.getType());
         paramMap.put("notes", newRecipeData.getNotes());
         paramMap.put("instruction", newRecipeData.getInstruction());
-        jdbcTemplate.update(createRecipeString, paramMap);
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(createRecipeString, new MapSqlParameterSource(paramMap), keyHolder);
+        return (int) keyHolder.getKeys().get("id");
+    }
+
+    public Integer createRecipe(String name, Integer cookingTime, String instruction, Integer type,  String notes) {
+        String sql = "INSERT INTO () values ()";
+        return 0;
     }
 
     public int createRecipeIngredient(Integer recipeId, IngredientsDTO newRecipeData) {
@@ -59,11 +66,6 @@ public class ChefRepository {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(sql, new MapSqlParameterSource(paramMap), keyHolder);
         return (int) keyHolder.getKeys().get("id");
-    }
-
-    public Integer createRecipe(Integer cookingTime, String instruction, Integer type, String name, String notes) {
-        String sql = "INSERT INTO () values ()";
-        return 0;
     }
 
     public RecipeDTO showRecipe(int recipeID) {
@@ -110,6 +112,24 @@ public class ChefRepository {
     public List<IngredientNameDTO> getIngredientList() {
         String sql = "SELECT * FROM ingredient ORDER BY name";
         List<IngredientNameDTO> resultList = jdbcTemplate.query(sql, new IngredientRowMapper());
+        return resultList;
+    }
+
+    public List<UnitResponse> getUnitList() {
+        String sql = "SELECT * FROM unit ORDER BY name";
+        List<UnitResponse> resultList = jdbcTemplate.query(sql, new UnitRowMapper());
+        return resultList;
+    }
+
+    public List<CookingTimeResponse> getCookingTimeList() {
+        String sql = "SELECT * FROM cooking_time";
+        List<CookingTimeResponse> resultList = jdbcTemplate.query(sql, new CookingTimeRowMapper());
+        return resultList;
+    }
+
+    public List<MealTypeResponse> getMealTypeList() {
+        String sql = "SELECT * FROM meal_type ORDER BY name";
+        List<MealTypeResponse> resultList = jdbcTemplate.query(sql, new MealTypeRowMapper());
         return resultList;
     }
 }
