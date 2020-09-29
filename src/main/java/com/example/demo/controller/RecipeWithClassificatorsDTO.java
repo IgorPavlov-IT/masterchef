@@ -1,13 +1,14 @@
 package com.example.demo.controller;
 
 public class RecipeWithClassificatorsDTO {
-    int id;
-    String name;
-    String cookingTime;
-    String type;
-    String notes;
+    private int id;
+    private String name;
+    private String cookingTime;
+    private String type;
+    private String notes;
 //    Object picture;
-    String instruction;
+    private String instruction;
+    private String ingredients;
 
     public int getId() {
         return id;
@@ -69,5 +70,13 @@ public class RecipeWithClassificatorsDTO {
     public RecipeWithClassificatorsDTO setInstruction(String instruction) {
         this.instruction = instruction;
         return this;
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
     }
 }

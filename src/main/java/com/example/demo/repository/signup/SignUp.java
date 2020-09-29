@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.repository.signup;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,6 +1,8 @@
-package com.example.demo.controller;
+package com.example.demo.repository.recipe;
 
+import com.example.demo.controller.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -12,20 +14,10 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class ChefRepository {
+public class RecipeRepository {
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
-
-    public void createSqlUser(String firstName, String lastName, String username, String password) {
-        String sql = "INSERT INTO sign_up (first_name, last_name, username, password) values (:firstName, :lastName, :username, :password)";    //koolon viitab väljapoole SQL'i, viitab Javale
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("firstName", firstName);
-        paramMap.put("lastName", lastName);
-        paramMap.put("username", username);
-        paramMap.put("password", password);
-        jdbcTemplate.update(sql, paramMap);
-    }
 
     public int createRecipe(String name, int cookingTime, int type, String notes, String instruction, String selectedIngredients) {
         String createRecipeString = "INSERT INTO recipe (name, cooking_time_id, meal_type_id, notes, instruction, selected_ingredients) VALUES (:name, :cooking_time_id, :meal_type_id, :notes, :instruction, :selected_ingredients)";
@@ -95,20 +87,6 @@ public class ChefRepository {
         return jdbcTemplate.queryForObject(retrieveMealTypeInfo, paramMap, String.class);
     }
 
-    public String retrieveShowInRecipe(int idShowInRecipe) {
-        String sql = "SELECT show_in_recipe FROM recipe_ingredient WHERE ingredient_id = :id";
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("id", idShowInRecipe);
-        return jdbcTemplate.queryForObject(sql, paramMap, String.class);
-    }
-
-    public String retrieveIngredientName(int idIngredient) {
-        String sql = "SELECT name FROM ingredient WHERE id = :id";
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("id", idIngredient);
-        return jdbcTemplate.queryForObject(sql, paramMap, String.class);
-    }
-
     public List<IngredientNameDTO> getIngredientList() {
         String sql = "SELECT * FROM ingredient ORDER BY name";
         List<IngredientNameDTO> resultList = jdbcTemplate.query(sql, new IngredientRowMapper());
@@ -131,5 +109,13 @@ public class ChefRepository {
         String sql = "SELECT * FROM meal_type ORDER BY name";
         List<MealTypeResponse> resultList = jdbcTemplate.query(sql, new MealTypeRowMapper());
         return resultList;
+    }
+
+    public List<RecipeIngredientEntity> getRecipeIngredients(int recipeId) {
+        String sql = "SELECT ri.id, name, show_in_recipe  FROM recipe_ingredient ri LEFT JOIN ingredient i on i.id = ri.ingredient_id " +
+                "WHERE ri.recipe_id = :recipeId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("recipeId", recipeId);
+        return jdbcTemplate.query(sql, paramMap, new BeanPropertyRowMapper<>(RecipeIngredientEntity.class));
     }
 }

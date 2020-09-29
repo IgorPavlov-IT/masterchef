@@ -1,5 +1,6 @@
-package com.example.demo.controller;
+package com.example.demo.repository.recipe;
 
+import com.example.demo.controller.RecipeWithClassificatorsDTO;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

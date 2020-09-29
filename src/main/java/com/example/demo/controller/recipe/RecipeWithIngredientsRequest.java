@@ -1,8 +1,10 @@
-package com.example.demo.controller;
+package com.example.demo.controller.recipe;
+
+import com.example.demo.controller.IngredientsDTO;
 
 import java.util.List;
 
-public class RecipeWithIngredientsDTO {
+public class RecipeWithIngredientsRequest {
     private String name;
     private int cookingTime;
     private int type;
