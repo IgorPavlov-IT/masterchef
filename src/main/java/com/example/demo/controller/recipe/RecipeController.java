@@ -1,27 +1,28 @@
-package com.example.demo.controller;
+package com.example.demo.controller.recipe;
 
+import com.example.demo.controller.RecipeDTO;
+import com.example.demo.controller.RecipeWithClassificatorsDTO;
+import com.example.demo.service.recipe.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 
 @RestController
-public class ChefController {
+public class RecipeController {
 
     @Autowired
-    private ChefService chefService;
+    private RecipeService chefService;
 
-    @PostMapping("masterchef/user")
-    public void createUser(@RequestBody UserDTO users) {
-        chefService.createNewUser(users.getFirstName(), users.getLastName(), users.getUsername(), users.getPassword());
-    }   // web:   http://localhost:8080/masterchef/user     login.html
-
+    // web:   http://localhost:8080/masterchef/recipe/add   createRecipe.html
     @PostMapping("masterchef/recipe/add")
-    public void createRecipe(@RequestBody RecipeWithIngredientsDTO newRecipeData) {
-        chefService.createRecipe(newRecipeData);
-    }   // web:   http://localhost:8080/masterchef/recipe/add   createRecipe.html
+    public void createRecipe(@RequestBody RecipeWithIngredientsRequest newRecipeData, String selectedIngredients) {
+        chefService.createRecipe(newRecipeData, selectedIngredients);
+    }
 
 /*    @GetMapping("masterchef/user")
     public UserDTO getUser() {

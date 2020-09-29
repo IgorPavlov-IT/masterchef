@@ -1,6 +1,6 @@
-package com.example.demo.controller;
+package com.example.demo.controller.user;
 
-public class UserDTO {
+public class UserRequest {
     String firstName;
     String lastName;
     String username;

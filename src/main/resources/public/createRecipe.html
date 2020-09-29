@@ -270,10 +270,11 @@
         let tabCell3 = tr.insertCell(-1);
         tabCell3.innerHTML = inputUnit.options[inputUnit.selectedIndex].text;
         let tabCell4 = tr.insertCell(-1);
-        tabCell4.innerHTML = inputDisplayInList.value;
+        tabCell4.innerHTML = inputDisplayInList.options[inputDisplayInList.selectedIndex].text;
         ingredientData.push({ingredient: inputIngredient.selectedIndex,
                     quantity: inputQuantity.value,
-                    unit: inputUnit.selectedIndex});
+                    unit: inputUnit.selectedIndex,
+            showInRecipe: inputDisplayInList.selectedIndex});
     })
 
     buttonCreateRecipe.addEventListener('click', function () {

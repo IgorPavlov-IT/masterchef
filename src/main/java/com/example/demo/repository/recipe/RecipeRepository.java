@@ -1,6 +1,8 @@
-package com.example.demo.controller;
+package com.example.demo.repository.recipe;
 
+import com.example.demo.controller.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -12,29 +14,20 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class ChefRepository {
+public class RecipeRepository {
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public void createSqlUser(String firstName, String lastName, String username, String password) {
-        String sql = "INSERT INTO sign_up (first_name, last_name, username, password) values (:firstName, :lastName, :username, :password)";    //koolon viitab väljapoole SQL'i, viitab Javale
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("firstName", firstName);
-        paramMap.put("lastName", lastName);
-        paramMap.put("username", username);
-        paramMap.put("password", password);
-        jdbcTemplate.update(sql, paramMap);
-    }
-
-    public int createRecipe(String name, int cookingTime, int type, String notes, String instruction) {
-        String createRecipeString = "INSERT INTO recipe (name, cooking_time_id, meal_type_id, notes, instruction) VALUES (:name, :cooking_time_id, :meal_type_id, :notes, :instruction)";
+    public int createRecipe(String name, int cookingTime, int type, String notes, String instruction, String selectedIngredients) {
+        String createRecipeString = "INSERT INTO recipe (name, cooking_time_id, meal_type_id, notes, instruction, selected_ingredients) VALUES (:name, :cooking_time_id, :meal_type_id, :notes, :instruction, :selected_ingredients)";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", name);
         paramMap.put("cooking_time_id", cookingTime);
         paramMap.put("meal_type_id", type);
         paramMap.put("notes", notes);
         paramMap.put("instruction", instruction);
+        paramMap.put("selected_ingredients", selectedIngredients);
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(createRecipeString, new MapSqlParameterSource(paramMap), keyHolder);
         return (int) keyHolder.getKeys().get("id");
@@ -116,5 +109,13 @@ public class ChefRepository {
         String sql = "SELECT * FROM meal_type ORDER BY name";
         List<MealTypeResponse> resultList = jdbcTemplate.query(sql, new MealTypeRowMapper());
         return resultList;
+    }
+
+    public List<RecipeIngredientEntity> getRecipeIngredients(int recipeId) {
+        String sql = "SELECT ri.id, name, show_in_recipe  FROM recipe_ingredient ri LEFT JOIN ingredient i on i.id = ri.ingredient_id " +
+                "WHERE ri.recipe_id = :recipeId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("recipeId", recipeId);
+        return jdbcTemplate.query(sql, paramMap, new BeanPropertyRowMapper<>(RecipeIngredientEntity.class));
     }
 }
