@@ -27,14 +27,15 @@ public class ChefRepository {
         jdbcTemplate.update(sql, paramMap);
     }
 
-    public int createRecipe(String name, int cookingTime, int type, String notes, String instruction) {
-        String createRecipeString = "INSERT INTO recipe (name, cooking_time_id, meal_type_id, notes, instruction) VALUES (:name, :cooking_time_id, :meal_type_id, :notes, :instruction)";
+    public int createRecipe(String name, int cookingTime, int type, String notes, String instruction, String selectedIngredients) {
+        String createRecipeString = "INSERT INTO recipe (name, cooking_time_id, meal_type_id, notes, instruction, selected_ingredients) VALUES (:name, :cooking_time_id, :meal_type_id, :notes, :instruction, :selected_ingredients)";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", name);
         paramMap.put("cooking_time_id", cookingTime);
         paramMap.put("meal_type_id", type);
         paramMap.put("notes", notes);
         paramMap.put("instruction", instruction);
+        paramMap.put("selected_ingredients", selectedIngredients);
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(createRecipeString, new MapSqlParameterSource(paramMap), keyHolder);
         return (int) keyHolder.getKeys().get("id");
@@ -92,6 +93,20 @@ public class ChefRepository {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", idMealType);
         return jdbcTemplate.queryForObject(retrieveMealTypeInfo, paramMap, String.class);
+    }
+
+    public String retrieveShowInRecipe(int idShowInRecipe) {
+        String sql = "SELECT show_in_recipe FROM recipe_ingredient WHERE ingredient_id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", idShowInRecipe);
+        return jdbcTemplate.queryForObject(sql, paramMap, String.class);
+    }
+
+    public String retrieveIngredientName(int idIngredient) {
+        String sql = "SELECT name FROM ingredient WHERE id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", idIngredient);
+        return jdbcTemplate.queryForObject(sql, paramMap, String.class);
     }
 
     public List<IngredientNameDTO> getIngredientList() {

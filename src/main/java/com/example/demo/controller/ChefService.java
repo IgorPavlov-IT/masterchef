@@ -21,10 +21,14 @@ public class ChefService {
         chefRepository.createSqlUser(firstName, lastName, username, password);
     }
 
-    public void createRecipe(RecipeWithIngredientsDTO newRecipeData) {
-        Integer recipeId = chefRepository.createRecipe(newRecipeData.getName(), newRecipeData.getCookingTime(), newRecipeData.getType(), newRecipeData.getNotes(), newRecipeData.getInstruction());
+    public void createRecipe(RecipeWithIngredientsDTO newRecipeData, String selectedIngredients) {
+        Integer recipeId = chefRepository.createRecipe(newRecipeData.getName(), newRecipeData.getCookingTime(), newRecipeData.getType(), newRecipeData.getNotes(), newRecipeData.getInstruction(), selectedIngredients);
+        String temp = "";
         for (IngredientsDTO ingredient : newRecipeData.getIngredients()) {
             chefRepository.createRecipeIngredient(recipeId, ingredient);
+            if (ingredient.isShowInRecipe()) {
+                temp=temp.concat(chefRepository.retrieveIngredientName(ingredient.getIngredient()));
+            }
         }
     }
 

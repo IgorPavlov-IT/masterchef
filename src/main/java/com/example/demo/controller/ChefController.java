@@ -19,8 +19,8 @@ public class ChefController {
     }   // web:   http://localhost:8080/masterchef/user     login.html
 
     @PostMapping("masterchef/recipe/add")
-    public void createRecipe(@RequestBody RecipeWithIngredientsDTO newRecipeData) {
-        chefService.createRecipe(newRecipeData);
+    public void createRecipe(@RequestBody RecipeWithIngredientsDTO newRecipeData, String selectedIngredients) {
+        chefService.createRecipe(newRecipeData, selectedIngredients);
     }   // web:   http://localhost:8080/masterchef/recipe/add   createRecipe.html
 
 /*    @GetMapping("masterchef/user")
