@@ -22,7 +22,7 @@ public class ChefService {
     }
 
     public void createRecipe(RecipeWithIngredientsDTO newRecipeData) {
-        Integer recipeId = chefRepository.createRecipe(newRecipeData.getName(), newRecipeData.getCookingTime(), newRecipeData.getInstruction(), newRecipeData.getType(),  newRecipeData.getNotes());
+        Integer recipeId = chefRepository.createRecipe(newRecipeData.getName(), newRecipeData.getCookingTime(), newRecipeData.getType(), newRecipeData.getNotes(), newRecipeData.getInstruction());
         for (IngredientsDTO ingredient : newRecipeData.getIngredients()) {
             chefRepository.createRecipeIngredient(recipeId, ingredient);
         }

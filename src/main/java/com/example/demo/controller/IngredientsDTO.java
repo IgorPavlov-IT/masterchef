@@ -1,9 +1,18 @@
 package com.example.demo.controller;
 
 public class IngredientsDTO {
-    int ingredient;     //int, kui teeme select box'i
+    int ingredient;
     int quantity;
-    int unit;      //int, kui teeme select box'i
+    int unit;
+    boolean showInRecipe;
+
+    public boolean isShowInRecipe() {
+        return showInRecipe;
+    }
+
+    public void setShowInRecipe(boolean showInRecipe) {
+        this.showInRecipe = showInRecipe;
+    }
 
     public int getIngredient() {
         return ingredient;

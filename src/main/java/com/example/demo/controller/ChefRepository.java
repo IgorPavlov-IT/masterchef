@@ -27,42 +27,27 @@ public class ChefRepository {
         jdbcTemplate.update(sql, paramMap);
     }
 
-/*    public void createRecipe(RecipeDTO newRecipeData) {       //See on eelmine versioon ilma ingredients'deta
+    public int createRecipe(String name, int cookingTime, int type, String notes, String instruction) {
         String createRecipeString = "INSERT INTO recipe (name, cooking_time_id, meal_type_id, notes, instruction) VALUES (:name, :cooking_time_id, :meal_type_id, :notes, :instruction)";
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("name", newRecipeData.getName());
-        paramMap.put("cooking_time_id", newRecipeData.getCookingTime());
-        paramMap.put("meal_type_id", newRecipeData.getType());
-        paramMap.put("notes", newRecipeData.getNotes());
-        paramMap.put("instruction", newRecipeData.getInstruction());
-        jdbcTemplate.update(createRecipeString, paramMap);
-            }*/
-
-    public int createRecipe(RecipeWithIngredientsDTO newRecipeData) {
-        String createRecipeString = "INSERT INTO recipe (name, cooking_time_id, meal_type_id, notes, instruction) VALUES (:name, :cooking_time_id, :meal_type_id, :notes, :instruction)";
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("name", newRecipeData.getName());
-        paramMap.put("cooking_time_id", newRecipeData.getCookingTime());
-        paramMap.put("meal_type_id", newRecipeData.getType());
-        paramMap.put("notes", newRecipeData.getNotes());
-        paramMap.put("instruction", newRecipeData.getInstruction());
+        paramMap.put("name", name);
+        paramMap.put("cooking_time_id", cookingTime);
+        paramMap.put("meal_type_id", type);
+        paramMap.put("notes", notes);
+        paramMap.put("instruction", instruction);
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(createRecipeString, new MapSqlParameterSource(paramMap), keyHolder);
         return (int) keyHolder.getKeys().get("id");
     }
 
-    public Integer createRecipe(String name, Integer cookingTime, String instruction, Integer type,  String notes) {
-        String sql = "INSERT INTO () values ()";
-        return 0;
-    }
-
     public int createRecipeIngredient(Integer recipeId, IngredientsDTO newRecipeData) {
-        String sql = "INSERT INTO recipe_ingredient (recipe_id, ingredient_id, qty, unit) VALUES (:recipeId, :ingredientId, :qty, :unit)";
+        String sql = "INSERT INTO recipe_ingredient (recipe_id, ingredient_id, qty, unit_id, show_in_recipe) VALUES (:recipeId, :ingredientId, :qty, :unit_id, :show_in_recipe)";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("recipeId", recipeId);
         paramMap.put("ingredientId", newRecipeData.getIngredient());
         paramMap.put("qty", newRecipeData.getQuantity());
-        paramMap.put("unit", newRecipeData.getUnit());
+        paramMap.put("unit_id", newRecipeData.getUnit());
+        paramMap.put("show_in_recipe", newRecipeData.isShowInRecipe());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(sql, new MapSqlParameterSource(paramMap), keyHolder);
         return (int) keyHolder.getKeys().get("id");

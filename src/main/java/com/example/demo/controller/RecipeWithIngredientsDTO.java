@@ -4,8 +4,8 @@ import java.util.List;
 
 public class RecipeWithIngredientsDTO {
     private String name;
-    private Integer cookingTime;
-    private Integer type;
+    private int cookingTime;
+    private int type;
     private String notes;
     private String instruction;
     List<IngredientsDTO> ingredients;
@@ -18,19 +18,19 @@ public class RecipeWithIngredientsDTO {
         this.name = name;
     }
 
-    public Integer getCookingTime() {
+    public int getCookingTime() {
         return cookingTime;
     }
 
-    public void setCookingTime(Integer cookingTime) {
+    public void setCookingTime(int cookingTime) {
         this.cookingTime = cookingTime;
     }
 
-    public Integer getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(int type) {
         this.type = type;
     }
 
