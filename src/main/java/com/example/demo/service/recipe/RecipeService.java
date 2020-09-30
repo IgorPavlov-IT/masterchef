@@ -40,7 +40,7 @@ public class RecipeService {
             List<RecipeIngredientEntity> ingredients = recipeRepository.getRecipeIngredients(recipe.getId());
             for (RecipeIngredientEntity ingredientNameDTO : ingredients) {
                 if(ingredientNameDTO.isShowInRecipe()){
-                    ingredient += ingredientNameDTO.getName() + " ";
+                    ingredient += ingredientNameDTO.getName() + ", ";
                 }
             }
             recipe.setIngredients(ingredient);

@@ -374,4 +374,11 @@
             </column>
         </addColumn>
     </changeSet>
+
+    <changeSet id="2020-09-29 drop column from recipe table " author="Kildu">
+        <dropColumn  tableName="recipe">
+            <column  name="selected_ingredients"/>
+        </dropColumn>
+    </changeSet>
+
 </databaseChangeLog>
