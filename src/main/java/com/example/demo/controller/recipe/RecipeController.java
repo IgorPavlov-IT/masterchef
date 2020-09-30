@@ -1,7 +1,7 @@
 package com.example.demo.controller.recipe;
 
-import com.example.demo.controller.RecipeDTO;
 import com.example.demo.controller.RecipeWithClassificatorsDTO;
+import com.example.demo.service.recipe.FullRecipeResponse;
 import com.example.demo.service.recipe.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +27,9 @@ public class RecipeController {
     }*/  // web: http://localhost:8080/masterchef/user
 
     @GetMapping("masterchef/recipe/display")
-    public RecipeDTO showRecipe(@RequestParam("r_id") int recipeID) {
+
+    public FullRecipeResponse showRecipe(@RequestParam("r_id") int recipeID) {
+
         return chefService.showRecipe(recipeID);
     }   // web: http://localhost:8080/masterchef/recipe/display
 

@@ -4,10 +4,11 @@ package com.example.demo.service.recipe;
 import com.example.demo.controller.*;
 import com.example.demo.controller.recipe.ClassificatorsResponse;
 import com.example.demo.controller.recipe.RecipeWithIngredientsRequest;
+import com.example.demo.repository.recipe.IngredientFullEntity;
+import com.example.demo.repository.recipe.RecipeFullEntity;
 import com.example.demo.repository.recipe.RecipeRepository;
 import com.example.demo.repository.recipe.RecipeIngredientEntity;
 import com.example.demo.repository.signup.SignUpRepository;
-import com.example.demo.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +30,10 @@ public class RecipeService {
         }
     }
 
-    public RecipeDTO showRecipe(int recipeID) {
-        return recipeRepository.showRecipe(recipeID);
+    public FullRecipeResponse showRecipe(int recipeID) {
+        RecipeFullEntity recipeEntity = recipeRepository.getFullRecipe(recipeID);
+        List<IngredientFullEntity> ingredientEntityList = recipeRepository.getFullIngredients(recipeID);
+        return new FullRecipeResponse(recipeEntity, ingredientEntityList);
     }
 
     public List<RecipeWithClassificatorsDTO> showFullRecipeList() {
@@ -64,10 +67,10 @@ public class RecipeService {
 
     public ClassificatorsResponse getSelectInput() {
         ClassificatorsResponse response = new ClassificatorsResponse();
-        response.setIngredients(recipeRepository.getIngredientList());
-        response.setUnits(recipeRepository.getUnitList());
-        response.setCookingTime(recipeRepository.getCookingTimeList());
-        response.setMealType(recipeRepository.getMealTypeList());
+        response.setIngredients(recipeRepository.getFullIngredientList());
+        response.setUnits(recipeRepository.getFullUnitList());
+        response.setCookingTime(recipeRepository.getFullCookingTimeList());
+        response.setMealType(recipeRepository.getFullMealTypeList());
         return response;
     }
 

@@ -1,6 +1,6 @@
 package com.example.demo.repository.recipe;
 
-import com.example.demo.controller.CookingTimeResponse;
+import com.example.demo.controller.recipe.CookingTimeResponse;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
