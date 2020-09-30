@@ -1,6 +1,5 @@
 package com.example.demo.controller.recipe;
 
-import com.example.demo.controller.CookingTimeResponse;
 import com.example.demo.controller.IngredientNameDTO;
 import com.example.demo.controller.MealTypeResponse;
 import com.example.demo.controller.UnitResponse;

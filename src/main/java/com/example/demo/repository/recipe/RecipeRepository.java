@@ -1,6 +1,7 @@
 package com.example.demo.repository.recipe;
 
 import com.example.demo.controller.*;
+import com.example.demo.controller.recipe.CookingTimeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -46,14 +47,39 @@ public class RecipeRepository {
         return (int) keyHolder.getKeys().get("id");
     }
 
-    public RecipeDTO showRecipe(int recipeID) {
-        String showRecipeString = "SELECT * FROM recipe WHERE id = :id";
+    public RecipeFullEntity getFullRecipe(int recipeID) {
+        String sql = "SELECT recipe.name, cooking_time.name cooking_time_id, meal_type.name meal_type_id, recipe.notes, recipe.instruction FROM recipe " +
+                "JOIN cooking_time ON recipe.cooking_time_id = cooking_time.id" +
+                "JOIN meal_type ON recipe.meal_type_id = meal_type.id  WHERE id = :id";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", recipeID);
-        RecipeDTO RecipeDTO = jdbcTemplate.queryForObject(showRecipeString, paramMap, new RecipeRowMapper());
-        //jdbcTemplate.queryForList(showRecipeString, paramMap, String.class) - näide stringilistist.
-        return RecipeDTO;
+        return jdbcTemplate.queryForObject(sql, paramMap, new BeanPropertyRowMapper<>(RecipeFullEntity.class));
     }
+
+    public List<IngredientFullEntity> getFullIngredients(int recipeID) {
+        String sql = "SELECT ingredient.name, recipe_ingredient.qty, unit.name FROM recipe_ingredient " +
+                "JOIN ingredient ON recipe_ingredient.ingredient_id = ingredient.id " +
+                "JOIN unit ON recipe_ingredient.unit_id = unit.id WHERE recipe_ingredient.recipe_id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", recipeID);
+        return jdbcTemplate.query(sql, paramMap, new BeanPropertyRowMapper<>(IngredientFullEntity.class));
+
+    }
+
+
+// TODO Delete later if not needed.
+//    public RecipePageFullDTOResponseFromRepositoryToService showRecipe(int recipeID) {
+//        String sql = "SELECT recipe.id, recipe.name, cooking_time.name cooking_time_id, meal_type.name meal_type_id, recipe.notes, recipe.instruction,  FROM recipe " +
+//                     "JOIN cooking_time ON recipe.cooking_time_id = cooking_time.id "
+//                     "LEFT JOIN recipe_ingredient ON recipe.id = recipe_ingredient.recipe_id"+
+//                     "JOIN ingredient ON recipe_ingredient.ingredient_id = ingredient.id" +
+//                     "JOIN meal_type ON recipe.meal_type_id = meal_type.id WHERE id = :id";
+//        Map<String, Object> paramMap = new HashMap<>();
+//        paramMap.put("id", recipeID);
+//        RecipePageFullDTOResponseFromRepositoryToService temp = jdbcTemplate.query(sql, paramMap);
+//
+//        return temp;
+//    }
 
     public List<RecipeWithClassificatorsDTO> showFullRecipeTable() {
         String showFullRecipeList = "SELECT recipe.id, recipe.name, cooking_time.name cooking_time_id, meal_type.name meal_type_id, recipe.notes, recipe.instruction FROM recipe " +
@@ -87,25 +113,25 @@ public class RecipeRepository {
         return jdbcTemplate.queryForObject(retrieveMealTypeInfo, paramMap, String.class);
     }
 
-    public List<IngredientNameDTO> getIngredientList() {
+    public List<IngredientNameDTO> getFullIngredientList() {
         String sql = "SELECT * FROM ingredient ORDER BY name";
         List<IngredientNameDTO> resultList = jdbcTemplate.query(sql, new IngredientRowMapper());
         return resultList;
     }
 
-    public List<UnitResponse> getUnitList() {
+    public List<UnitResponse> getFullUnitList() {
         String sql = "SELECT * FROM unit ORDER BY name";
         List<UnitResponse> resultList = jdbcTemplate.query(sql, new UnitRowMapper());
         return resultList;
     }
 
-    public List<CookingTimeResponse> getCookingTimeList() {
+    public List<CookingTimeResponse> getFullCookingTimeList() {
         String sql = "SELECT * FROM cooking_time";
         List<CookingTimeResponse> resultList = jdbcTemplate.query(sql, new CookingTimeRowMapper());
         return resultList;
     }
 
-    public List<MealTypeResponse> getMealTypeList() {
+    public List<MealTypeResponse> getFullMealTypeList() {
         String sql = "SELECT * FROM meal_type ORDER BY name";
         List<MealTypeResponse> resultList = jdbcTemplate.query(sql, new MealTypeRowMapper());
         return resultList;
