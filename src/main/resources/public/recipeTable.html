@@ -155,40 +155,41 @@
     <div class="row">
         <div class="col-md-12 order-md-1">
             <h4 class="mb-3">Recipe list</h4>
-                  <!--<p id="showData"></p>-->
+            <!--<p id="showData"></p>-->
             <table align="center" id="dynamicTable" border="5" height="100px" width="1024px">
-              <!--  <th align="center" bgcolor="#ffffff" valign="middle">-->
+                <!--  <th align="center" bgcolor="#ffffff" valign="middle">-->
                 <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Cooking time</th>
-                <th>Meal type</th>
-                <th>Notes</th>
-                <th>Instructions</th>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Cooking time</th>
+                    <th>Meal type</th>
+                    <th>Notes</th>
+                    <th>Instructions</th>
+                    <th>Main ingredients</th>
                 </tr>
                 <!--</th>-->
 
-                    <!--                    <td>Easy</td>
-                                        <td>I'm very good at making this</td>
-                                        <td>Breakfast</td>
-                                        <td> [button? link?]?</td>
-                                    </tr>
+                <!--                    <td>Easy</td>
+                                    <td>I'm very good at making this</td>
+                                    <td>Breakfast</td>
+                                    <td> [button? link?]?</td>
+                                </tr>
 
-                                    <tr align="center" bgcolor="#ffffff" valign="middle">
-                                        <td>Boiled egg</td>
-                                        <td>Easy</td>
-                                        <td>I'm very good at making this also</td>
-                                        <td>Breakfast</td>
-                                        <td> [button? link?]?</td>
-                                    </tr>
+                                <tr align="center" bgcolor="#ffffff" valign="middle">
+                                    <td>Boiled egg</td>
+                                    <td>Easy</td>
+                                    <td>I'm very good at making this also</td>
+                                    <td>Breakfast</td>
+                                    <td> [button? link?]?</td>
+                                </tr>
 
-                                    <tr align="center" bgcolor="#ffffff" valign="middle">
-                                        <td>Pasta</td>
-                                        <td>Easy</td>
-                                        <td>Mmmm pasta</td>
-                                        <td>Breakfast</td>
-                                        <td> [button? link?]?</td>
-                                    </tr>-->
+                                <tr align="center" bgcolor="#ffffff" valign="middle">
+                                    <td>Pasta</td>
+                                    <td>Easy</td>
+                                    <td>Mmmm pasta</td>
+                                    <td>Breakfast</td>
+                                    <td> [button? link?]?</td>
+                                </tr>-->
             </table>
         </div>
     </div>
@@ -243,13 +244,13 @@
                 }
                 /*var table = document.createElement("table");    */// CREATE DYNAMIC TABLE
                 // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
-               /* var tr = table.insertRow(-1);                   // TABLE ROW.
+                /* var tr = table.insertRow(-1);                   // TABLE ROW.
 
-                for (var i = 0; i < col.length; i++) {
-                    var th = document.createElement("th");      // TABLE HEADER.
-                    th.innerHTML = col[i];
-                    tr.appendChild(th);
-                }*/
+                 for (var i = 0; i < col.length; i++) {
+                     var th = document.createElement("th");      // TABLE HEADER.
+                     th.innerHTML = col[i];
+                     tr.appendChild(th);
+                 }*/
                 // ADD JSON DATA TO THE TABLE AS ROWS.
                 for (var i = 0; i < jsonData.length; i++) {
 
@@ -257,8 +258,8 @@
 
                     for (var j = 0; j < col.length; j++) {
                         var tabCell = tr.insertCell(-1);
-                        if(j == 1){
-                            tabCell.innerHTML = '<a href="recipe.html?r_id=' + jsonData[i][col[0]] + '">'+jsonData[i][col[1]] + "</a>"
+                        if (j == 1) {
+                            tabCell.innerHTML = '<a href="recipe.html?r_id=' + jsonData[i][col[0]] + '">' + jsonData[i][col[1]] + "</a>"
                         } else {
                             tabCell.innerHTML = jsonData[i][col[j]];
                         }
