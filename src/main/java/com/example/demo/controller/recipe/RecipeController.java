@@ -1,13 +1,10 @@
 package com.example.demo.controller.recipe;
 
-import com.example.demo.controller.RecipeDTO;
 import com.example.demo.controller.RecipeWithClassificatorsDTO;
+import com.example.demo.service.recipe.FullRecipeResponse;
 import com.example.demo.service.recipe.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,7 +29,7 @@ public class RecipeController {
 
 
     @GetMapping("masterchef/recipe/display")
-    public RecipeDTO showRecipe(@RequestBody int recipeID) {
+    public FullRecipeResponse showRecipe(@RequestParam("r_id") int recipeID) {
         return chefService.showRecipe(recipeID);
     }   // web: http://localhost:8080/masterchef/recipe/display
 

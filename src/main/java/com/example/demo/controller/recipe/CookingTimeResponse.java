@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.recipe;
 
 public class CookingTimeResponse {
     private int id;
@@ -20,3 +20,6 @@ public class CookingTimeResponse {
         this.name = name;
     }
 }
+
+
+
