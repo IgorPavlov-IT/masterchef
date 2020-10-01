@@ -48,9 +48,11 @@ public class RecipeRepository {
     }
 
     public RecipeFullEntity getFullRecipe(int recipeID) {
+
         String sql = "SELECT recipe.name, ct.name cooking_time, mt.name meal_type, recipe.notes, recipe.instruction FROM recipe " +
                 "JOIN cooking_time ct ON recipe.cooking_time_id = ct.id " +
                 "JOIN meal_type mt ON recipe.meal_type_id = mt.id WHERE recipe.id = :id";
+
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", recipeID);
         return jdbcTemplate.queryForObject(sql, paramMap, new ShowRecipeRowMapper());            //new BeanPropertyRowMapper<>(RecipeFullEntity.class)
@@ -80,7 +82,7 @@ public class RecipeRepository {
 //    }
 
     public List<RecipeWithClassificatorsDTO> showFullRecipeTable() {
-        String showFullRecipeList = "SELECT recipe.id, recipe.name, cooking_time.name cooking_time_id, meal_type.name meal_type_id, recipe.notes, recipe.instruction FROM recipe " +
+        String showFullRecipeList = "SELECT recipe.id, recipe.name, cooking_time.name cooking_time_id, meal_type.name meal_type_id, recipe.notes, recipe.instruction " +
                 "JOIN cooking_time ON recipe.cooking_time_id = cooking_time.id " +
                 "JOIN meal_type ON recipe.meal_type_id = meal_type.id";
         Map<String, Object> paramMap = new HashMap<>();
