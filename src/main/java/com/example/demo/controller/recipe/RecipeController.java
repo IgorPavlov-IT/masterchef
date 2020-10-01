@@ -24,14 +24,10 @@ public class RecipeController {
 /*    @GetMapping("masterchef/user")
     public UserDTO getUser() {
         return new UserDTO(chefService.getSignUp());
-
     }*/  // web: http://localhost:8080/masterchef/user
 
-
     @GetMapping("masterchef/recipe/display")
-
     public FullRecipeResponse showRecipe(@RequestParam("r_id") int recipeID) {
-
         return chefService.showRecipe(recipeID);
     }   // web: http://localhost:8080/masterchef/recipe/display
 
