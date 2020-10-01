@@ -48,24 +48,22 @@ public class RecipeRepository {
     }
 
     public RecipeFullEntity getFullRecipe(int recipeID) {
-        String sql = "SELECT recipe.name, cooking_time.name cooking_time_id, meal_type.name meal_type_id, recipe.notes, recipe.instruction FROM recipe " +
-                "JOIN cooking_time ON recipe.cooking_time_id = cooking_time.id" +
-                "JOIN meal_type ON recipe.meal_type_id = meal_type.id  WHERE id = :id";
+        String sql = "SELECT recipe.name, ct.name cooking_time, mt.name meal_type, recipe.notes, recipe.instruction FROM recipe " +
+                "JOIN cooking_time ct ON recipe.cooking_time_id = ct.id " +
+                "JOIN meal_type mt ON recipe.meal_type_id = mt.id WHERE recipe.id = :id";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", recipeID);
-        return jdbcTemplate.queryForObject(sql, paramMap, new BeanPropertyRowMapper<>(RecipeFullEntity.class));
+        return jdbcTemplate.queryForObject(sql, paramMap, new ShowRecipeRowMapper());            //new BeanPropertyRowMapper<>(RecipeFullEntity.class)
     }
 
     public List<IngredientFullEntity> getFullIngredients(int recipeID) {
-        String sql = "SELECT ingredient.name, recipe_ingredient.qty, unit.name FROM recipe_ingredient " +
+        String sql = "SELECT ingredient.name ingredient_name, recipe_ingredient.qty, unit.name ingredient_unit FROM recipe_ingredient " +
                 "JOIN ingredient ON recipe_ingredient.ingredient_id = ingredient.id " +
                 "JOIN unit ON recipe_ingredient.unit_id = unit.id WHERE recipe_ingredient.recipe_id = :id";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", recipeID);
-        return jdbcTemplate.query(sql, paramMap, new BeanPropertyRowMapper<>(IngredientFullEntity.class));
-
+        return jdbcTemplate.query(sql, paramMap, new ShowIngredientRowMapper());      //new BeanPropertyRowMapper<>(IngredientFullEntity.class)
     }
-
 
 // TODO Delete later if not needed.
 //    public RecipePageFullDTOResponseFromRepositoryToService showRecipe(int recipeID) {
