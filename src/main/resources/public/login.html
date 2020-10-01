@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -9,7 +10,8 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/jumbotron/">
 
     <!-- Bootstrap core CSS -->
-    <link href="https://getbootstrap.com/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -33,6 +35,7 @@
             -ms-user-select: none;
             user-select: none;
         }
+
         @media (min-width: 768px) {
             .bd-placeholder-img-lg {
                 font-size: 3.5rem;
@@ -44,14 +47,15 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-success">
-    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="navbar-collapse collapse" id="navbarsExampleDefault" style="">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#">Home <span class="sr-only" >(current)</span></a>
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
 
@@ -63,8 +67,10 @@
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control my-sm-2" type="text" placeholder="Name or Keyword" aria-label="Search">
-            <button class="btn btn-outline-light my-2 my-sm-0" style="margin-left: 10px" type="submit">Search recipes</button>
-            <button class="btn btn-outline-light " href="#" style="margin-right: 0px; margin-left: 25px">Sign in </button>
+            <button class="btn btn-outline-light my-2 my-sm-0" style="margin-left: 10px" type="submit">Search recipes
+            </button>
+            <button class="btn btn-outline-light " href="#" style="margin-right: 0px; margin-left: 25px">Sign in
+            </button>
 
         </form>
     </div>
@@ -74,50 +80,39 @@
     <div class="jumbotron text-center">
         <div class="container">
             <p class="text-muted ">Sign in to use full potential of MasterChef</p>
-            <input type="text" id="username" class="form-control col-md-4" placeholder="Username" required="" style="margin:auto">
-            <input type="password" id="password" class="form-control col-md-4" placeholder="Password" required="" style="margin:auto; margin-top: 15px">
+            <input type="text" id="username" class="form-control col-md-4" placeholder="Username" required=""
+                   style="margin:auto">
+            <input type="password" id="password" class="form-control col-md-4" placeholder="Password" required=""
+                   style="margin:auto; margin-top: 15px">
             <br>
             <p><a class="btn btn-success btn-md" href="#" role="button">Sign in</a></p>
             <br>
-            <p class="text-muted ">You're not a member of MasterChef Family yet? Don't hesitate, create an account below to join us now.</p>
-            <input type="text" id="firstName" class="form-control col-md-4" placeholder="First name" required="" style="margin:auto">
-            <input type="text" id="lastName" class="form-control col-md-4" placeholder="Last name" required="" style="margin:auto; margin-top: 15px">
-            <div class="container">
-            <div class="dropdown">
-                <button type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown">
-                    Gender
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item-text">Male</a>
-                    <a class="dropdown-item-text">Female</a>
-                </div>
-            </div>
-                </div>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <button id="dropGender" class="btn btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gender</button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item-text" href="#">Male</a>
-                        <a class="dropdown-item-text" href="#">Female</a>
-                    </div>
-                </div>
-                <input id="gender" type="text" class="form-control" aria-label="Text input with dropdown button">
-            </div>
-           <!-- <input type="text" id="inputGender" class="form-control col-md-4" placeholder="Gender" required="" style="margin:auto; margin-top: 15px">-->
-            <input type="text" id="username1" class="form-control col-md-4" placeholder="Username" required="" style="margin:auto; margin-top: 15px">
-            <input type="password" id="password1" class="form-control col-md-4" placeholder="Password" required="" style="margin:auto; margin-top: 15px">
+            <p class="text-muted ">You're not a member of MasterChef Family yet? Don't hesitate, create an account below
+                to join us now.</p>
+            <input type="text" id="firstName" class="form-control col-md-4" placeholder="First name" required=""
+                   style="margin:auto">
+            <input type="text" id="lastName" class="form-control col-md-4" placeholder="Last name" required=""
+                   style="margin:auto; margin-top: 15px">
+            <input type="text" id="username1" class="form-control col-md-4" placeholder="Username" required=""
+                   style="margin:auto; margin-top: 15px">
+            <input type="password" id="password1" class="form-control col-md-4" placeholder="Password" required=""
+                   style="margin:auto; margin-top: 15px">
 
             <br>
-            <p><a class="btn btn-success btn-md" id="createAccount"href="#" role="button">Create account</a></p>
+            <p><a class="btn btn-success btn-md" id="createAccount" href="#" role="button">Create account</a></p>
         </div>
     </div>
 </main>
 <footer class="container">
     <p>© Company 2017-2020</p>
 </footer>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+<script src="/docs/4.5/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf"
+        crossorigin="anonymous"></script>
 <script>
     /*Create new user account*/
     let inputFirstName = document.getElementById("firstName");
@@ -151,15 +146,6 @@
         document.getElementById("username1").value = "";
         document.getElementById("password1").value = "";
     })
-
-
-
-/*    let selectionGender = document.getElementById("dropGender");
-    let inputGender= document.getElementById("gender");
-    selectionGender.onclick = function () {
-        alert(selectionGender.options[selectionGender.selectedIndex].text);
-        /!*inputGender.innerHTML=*!/
-    }*/
 </script>
 </body>
 </html>
