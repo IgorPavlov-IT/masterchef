@@ -94,27 +94,35 @@
             <p class="text-secondary" id="notes" style="margin-left:60px"></p>
         </div>
         <div class="col-md-8">
-            <div class="container" style="margin-top:68px;margin-left: 50px">
-                <h4 class="display-4" id="recipeName" style="margin-left:30px;margin-top:60px"><strong></strong></h4>
+            <h4 class="display-4" id="recipeName" style="margin-left:30px;margin-top:60px"><strong></strong></h4>
+            <div class="row mb-2">
+                <div class="col-md-3">
+                    <p class="text-secondary" id="cookingTime" style="margin-left:30px;margin-top:15px">15 - 30 min</p>
+                </div>
+                <div class="col-md-2">
+                    <p class="text-secondary" id="type" style="margin-left:15px;margin-top:15px;text-align:left">
+                        breakfast</p>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-6 text-right">
+                    <table align="center" id="dynamicTable" border="5" height="100px" width="250px">
+                        <tr>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Unit</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <!--<div class="container" style="margin-top:54px;margin-bottom:15px;margin-left: 10px">-->
+                    <p class="card-text mb-auto" style="margin-bottom:15px;padding-bottom: 8px">
+                        <strong>Instructions</strong></p>
+                    <p class="card-text mb-auto" id="instruction"></p>
+                    <!--</div>-->
+                </div>
             </div>
         </div>
-    <div class="row mb-2">
-        <div class="col-md-2 text-right">
-            <table align="center" id="dynamicTable" border="5" height="100px" width="400px">
-                <tr>
-                    <th>Quantity</th>
-                    <th>Ingredients</th>
-                </tr>
-            </table>
-        </div>
-        <div class="col-md-6">
-            <div class="container" style="margin-top:54px;margin-bottom:15px;margin-left: 10px">
-                <p class="card-text mb-auto"><strong>Instructions</strong></p>
-                <p class="card-text mb-auto" id="instruction"></p>
-            </div>
-        </div>
-    </div>
-    </div>
     </div>
 
     </div>
@@ -143,7 +151,7 @@
         let displayInstruction = document.getElementById("instruction");
         /*    let displayPicture = document.getElementById("picture");*/
         let displayNotes = document.getElementById("notes");
-        let displayDynamicTable = document.getElementById("dynamicTable");
+        let createDynamicTable = document.getElementById("dynamicTable");
 
         fetch('masterchef/recipe/display?r_id=' + get('r_id'), {
             method: 'GET',
@@ -159,23 +167,27 @@
                 displayRecipeName.innerHTML = jsonData.name;
                 displayCookingTime.innerHTML = jsonData.cookingTime;
                 displayType.innerHTML = jsonData.type;
-                displayInstruction.innerHTML = jsonData.instruction;
                 displayNotes.innerHTML = jsonData.notes;
+                displayInstruction.innerHTML = jsonData.instruction;
 
-
-                // ADD JSON DATA TO THE TABLE AS ROWS.
-                let col = [];
-                for (let i = 0; i < jsonData.ingredientList.length; i++) {
-                    let tr = displayDynamicTable.insertRow(-1);
-                    for (let j = 0; j < col.length; j++) {
-                        let tabCell = tr.insertCell(-1);
-                        tabCell.innerHTML = jsonData.ingredientList[i][col[j]];
+                let col2 = [];                                   // EXTRACT VALUE FOR HTML HEADER.
+                for (let i = 0; i < jsonData.ingredients.length; i++) {
+                    for (let key in jsonData[i]) {
+                        if (col2.indexOf(key) === -1) {
+                            col2.push(key);
+                        }
                     }
                 }
-                // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-                /*var tdContainer = document.getElementById("showData");
-                tdContainer.innerHTML = "";
-                tdContainer.appendChild(dynamicTable);*/
+                // ADD JSON DATA TO THE TABLE AS ROWS.
+                for (let i = 0; i < jsonData.ingredients.length; i++) {
+                    let tr2 = createDynamicTable.insertRow(-1);
+                    let tabCell2 = tr2.insertCell(-1);
+                    tabCell2.innerHTML = jsonData.ingredients[i].quantity;
+                    let tabCell3 = tr2.insertCell(-1);
+                    tabCell3.innerHTML = jsonData.ingredients[i].unit;
+                    let tabCell4 = tr2.insertCell(-1);
+                    tabCell4.innerHTML = jsonData.ingredients[i].name;
+                }
             })
             .catch(function (err) {
                 console.log(err);

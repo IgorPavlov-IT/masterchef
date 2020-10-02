@@ -234,9 +234,9 @@
                 return response.json();
             })
             .then(function (jsonData) {         //siin saan andmetega midagi teha
-                var col = [];                                   // EXTRACT VALUE FOR HTML HEADER.
-                for (var i = 0; i < jsonData.length; i++) {
-                    for (var key in jsonData[i]) {
+                let col = [];                                   // EXTRACT VALUE FOR HTML HEADER.
+                for (let i = 0; i < jsonData.length; i++) {
+                    for (let key in jsonData[i]) {
                         if (col.indexOf(key) === -1) {
                             col.push(key);
                         }
@@ -252,12 +252,12 @@
                      tr.appendChild(th);
                  }*/
                 // ADD JSON DATA TO THE TABLE AS ROWS.
-                for (var i = 0; i < jsonData.length; i++) {
+                for (let i = 0; i < jsonData.length; i++) {
 
-                    tr = dynamicTable.insertRow(-1);
+                    let tr = dynamicHtmlTable.insertRow(-1);
 
-                    for (var j = 0; j < col.length; j++) {
-                        var tabCell = tr.insertCell(-1);
+                    for (let j = 0; j < col.length; j++) {
+                        let tabCell = tr.insertCell(-1);
                         if (j == 1) {
                             tabCell.innerHTML = '<a href="recipe.html?r_id=' + jsonData[i][col[0]] + '">' + jsonData[i][col[1]] + "</a>"
                         } else {
@@ -266,9 +266,9 @@
                     }
                 }
                 // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-                var tdContainer = document.getElementById("showData");
+/*                var tdContainer = document.getElementById("showData");
                 tdContainer.innerHTML = "";
-                tdContainer.appendChild(dynamicTable);
+                tdContainer.appendChild(dynamicTable);*/
             })
             .catch(function (err) {
                 console.log(err);
