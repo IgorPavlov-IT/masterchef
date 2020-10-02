@@ -21,14 +21,13 @@ public class RecipeRepository {
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     public int createRecipe(String name, int cookingTime, int type, String notes, String instruction, String selectedIngredients) {
-        String createRecipeString = "INSERT INTO recipe (name, cooking_time_id, meal_type_id, notes, instruction, selected_ingredients) VALUES (:name, :cooking_time_id, :meal_type_id, :notes, :instruction, :selected_ingredients)";
+        String createRecipeString = "INSERT INTO recipe (name, cooking_time_id, meal_type_id, notes, instruction) VALUES (:name, :cooking_time_id, :meal_type_id, :notes, :instruction)";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", name);
         paramMap.put("cooking_time_id", cookingTime);
         paramMap.put("meal_type_id", type);
         paramMap.put("notes", notes);
         paramMap.put("instruction", instruction);
-        paramMap.put("selected_ingredients", selectedIngredients);
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(createRecipeString, new MapSqlParameterSource(paramMap), keyHolder);
         return (int) keyHolder.getKeys().get("id");
@@ -52,7 +51,6 @@ public class RecipeRepository {
         String sql = "SELECT recipe.name, ct.name cooking_time, mt.name meal_type, recipe.notes, recipe.instruction FROM recipe " +
                 "JOIN cooking_time ct ON recipe.cooking_time_id = ct.id " +
                 "JOIN meal_type mt ON recipe.meal_type_id = mt.id WHERE recipe.id = :id";
-
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", recipeID);
         return jdbcTemplate.queryForObject(sql, paramMap, new ShowRecipeRowMapper());            //new BeanPropertyRowMapper<>(RecipeFullEntity.class)
@@ -82,7 +80,7 @@ public class RecipeRepository {
 //    }
 
     public List<RecipeWithClassificatorsDTO> showFullRecipeTable() {
-        String showFullRecipeList = "SELECT recipe.id, recipe.name, cooking_time.name cooking_time_id, meal_type.name meal_type_id, recipe.notes, recipe.instruction " +
+        String showFullRecipeList = "SELECT recipe.id, recipe.name, cooking_time.name cooking_time_id, meal_type.name meal_type_id, recipe.notes, recipe.instruction FROM recipe " +
                 "JOIN cooking_time ON recipe.cooking_time_id = cooking_time.id " +
                 "JOIN meal_type ON recipe.meal_type_id = meal_type.id";
         Map<String, Object> paramMap = new HashMap<>();
